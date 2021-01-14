@@ -15,13 +15,14 @@ export class Service {
         instance = _instance;
     }
 
-    getGeojson() {
-        return axios({
-            method: 'get',
-            url: 'https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson',
-            responseType: 'stream'
-        })
+    getGeojsonANDMyDb() {
+        return axios.all([
+            axios.get('https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson'),
+            axios.get('http://localhost:3001/regione'),
+            axios.get('http://localhost:3001/soglie/'),
+        ])
     }
+<<<<<<< HEAD
     getGeoForm() {
         return axios({
             method: 'get',
@@ -30,4 +31,6 @@ export class Service {
         })
     }
 
+=======
+>>>>>>> 952bb947ae07afd1da892b9fb58a9226b3b45f1a
 }
