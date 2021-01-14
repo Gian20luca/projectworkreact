@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 var instance = null;
 
 export class Service {
@@ -20,6 +19,13 @@ export class Service {
         return axios({
             method: 'get',
             url: 'https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson',
+            responseType: 'stream'
+        })
+    }
+    getGeoForm() {
+        return axios({
+            method: 'get',
+            url: 'http://localhost:3001/regione',
             responseType: 'stream'
         })
     }

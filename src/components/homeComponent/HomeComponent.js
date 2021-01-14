@@ -5,9 +5,9 @@ import { NavbarComponent } from "../../core/navbarComponent/NavbarComponent";
 export function HomeComponent() {
   return (
     <div>
-      <NavbarComponent />
+      
       <MapComponent />
-      <FooterComponent />
+      
     </div>
   );
 }
