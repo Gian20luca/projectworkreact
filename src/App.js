@@ -8,7 +8,6 @@ export function App() {
     <BrowserRouter>
       <div>
         <Route exact path="/" component={HomeComponent}/>
-        
       </div>
     </BrowserRouter>
   )

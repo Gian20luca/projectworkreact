@@ -225,27 +225,27 @@
     "soglie": [
       {
         "id": 1,
-        "minPositiveThresholds": 25,
-        "maxPositiveThresholds": 50,
-        "minColorPositiveThresholds": "#eeff00",
-        "mediumColorPositiveThresholds": "#ff8800",
-        "maxColorPositiveThresholds": "#ff0000"
+        "minThresholds": 25,
+        "maxThresholds": 50,
+        "minColor": "#eeff00",
+        "mediumColor": "#ff8800",
+        "maxColor": "#ff0000"
       },
       {
         "id": 2,
-        "minDeathsThresholds": 25,
-        "maxDeathsThresholds": 50,
-        "minColorDeathsThresholds": "#c7c7c7",
-        "mediumColorDeathsThresholds": "#808080",
-        "maxColorDeathsThresholds": "#000000"
+        "minThresholds": 25,
+        "maxThresholds": 50,
+        "minColor": "#c7c7c7",
+        "mediumColor": "#808080",
+        "maxColor": "#000000"
       },
       {
         "id": 3,
-        "minAsymptomaticThresholds": 25,
-        "maxAsymptomaticThresholds": 50,
-        "minColorAsymptomaticThresholds": "#00bfff",
-        "mediumColorAsymptomaticThresholds": "#0044ff",
-        "maxColorAsymptomaticThresholds": "#010698"
+        "minThresholds": 25,
+        "maxThresholds": 50,
+        "minColor": "#00bfff",
+        "mediumColor": "#0044ff",
+        "maxColor": "#010698"
       }
     ]
   }

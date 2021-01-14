@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter,Link } from 'react-router-dom';
 import './NavbarComponent.css';
 export function NavbarComponent() { 
   return (
@@ -11,10 +11,12 @@ export function NavbarComponent() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
+          <BrowserRouter>
             <Link className="nav-link" to="/">Home</Link>
             <Link className="nav-link" to="/ManagePositives">Manage Positives</Link>
             <Link className="nav-link" to="/ManageThresholds">Manage Thresholds</Link>
             <Link className="nav-link" to="/Team">Team</Link>
+          </BrowserRouter>
           </div>
         </div>
       </div>
