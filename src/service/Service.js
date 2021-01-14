@@ -22,15 +22,4 @@ export class Service {
             axios.get('http://localhost:3001/soglie/'),
         ])
     }
-<<<<<<< HEAD
-    getGeoForm() {
-        return axios({
-            method: 'get',
-            url: 'http://localhost:3001/regione',
-            responseType: 'stream'
-        })
-    }
-
-=======
->>>>>>> 952bb947ae07afd1da892b9fb58a9226b3b45f1a
 }
