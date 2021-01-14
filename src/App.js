@@ -1,15 +1,26 @@
 import React from 'react';
 import './App.css';
-import {HomeComponent} from './components/homeComponent/HomeComponent'
-import { MapComponent } from './components/MapComponent/MapComponent';
+import {HomeComponent} from './components/homeComponent/HomeComponent';
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export function App() {
   return (
-    <div className="container">
-      <div className="row">
-        {/* <HomeComponent/> */}
-        <MapComponent/>
+    <BrowserRouter>
+      <div>
+        <Route exact path="/" component={HomeComponent}/>
+       {/*  <Route exact path="/ManagePositives" component={ManagePositive}/>
+        <Route exact path="/ManageThresholds" component={ManageThresholds}/>
+        <Route exact path="/Team" component={Team}/> */}
+        
       </div>
-    </div>
+    </BrowserRouter>
+   /*  <div className="container-fluid">
+      <div className="row">
+        <NavbarComponent />
+        <HomeComponent />
+        <FooterComponent/>
+        
+      </div>
+    </div> */
   )
 }
