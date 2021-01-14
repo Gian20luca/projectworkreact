@@ -89,11 +89,10 @@ export function MapComponent() {
       <div className="row">
         <div className="col-md-12">
           <BrowserRouter>
-            <Link className="nav-link" to="/mapPositive">mappa positivi</Link>
+            <Link className="nav-link" to="/">mappa positivi</Link>
             <Link className="nav-link" to="/mapDeaths">mappa decessi</Link>
             <Link className="nav-link" to="/mapAsymptomatic">mappa asintomatici</Link>
-            <Switch>
-              <Route exact path="/mapPositive">
+              <Route exact path="/">
                 <MapContainer center={position} zoom={5}>
                   <TileLayer
                     url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
@@ -117,7 +116,6 @@ export function MapComponent() {
                   {geojson && dbRegione && dbSoglie && <GeoJSON style={styleAsintomatici} data={geojson.features}></GeoJSON>}
                 </MapContainer>
               </Route>
-            </Switch >
           </BrowserRouter>
         </div>
       </div>
