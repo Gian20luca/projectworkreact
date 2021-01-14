@@ -6,9 +6,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 export function HomeComponent() {
   return (
     <div>
-      <NavbarComponent />
+      
       <MapComponent />
-      <FooterComponent />
+      
     </div>
   );
 }

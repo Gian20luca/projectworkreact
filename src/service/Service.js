@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 var instance = null;
 
 export class Service {
