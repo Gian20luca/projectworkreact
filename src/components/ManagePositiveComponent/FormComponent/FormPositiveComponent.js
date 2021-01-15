@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Service } from "../../../service/Service";
-
+import axios from 'axios';
 export function FormPositive() {
   const [regione, setRegione] = useState();
   useEffect(() => {
     let call = new Service();
 
-    call.getGeoForm().then(function (response) {
-      setRegione((dati) => (dati = response.data));
-      //console.log(regione)
-    });
-  }, []);
+    call.getGeojsonANDMyDb().then(axios.spread(function (data1, data2, data3) {
+      //setto lo stato del geojson
+       setRegione(predbregione => predbregione = data2.data);
 
- 
+    }));
+  }, [])
+
+
   
   return (
     <form className="container">

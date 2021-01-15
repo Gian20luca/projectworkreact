@@ -11,14 +11,14 @@ export function App() {
     <div>
       <BrowserRouter>
         <NavbarComponent />
-        <Switch>
+        
           <Route exact path="/">
             <HomeComponent />
           </Route>
           <Route exact path="/ManagePositive">
             <ManagePositive />
           </Route>
-        </Switch>
+        
         <FooterComponent />
       </BrowserRouter>
     </div>

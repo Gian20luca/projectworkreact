@@ -1,15 +1,10 @@
 import React from "react";
-import NavbarComponent from "../../core/navbarComponent/NavbarComponent";
-import FooterComponent from "../../core/footerComponent/FooterComponent"
-import { FormPositive } from "./FormPositiveComponent/FormPositiveComponent";
+import { FormPositive } from "./FormComponent/FormPositiveComponent";
 
 export function ManagePositive() {
   return (
     <div>
-    
-      <FormPositive/>
-      
-      
+      <FormPositive />
     </div>
   );
 }
