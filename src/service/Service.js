@@ -22,4 +22,42 @@ export class Service {
             axios.get('http://localhost:3001/soglie/'),
         ])
     }
+
+    getRegionModal() {
+        return axios({
+            method: 'get',
+            url: 'http://localhost:3001/regione',
+            responseType: 'stream'
+        })
+    }
+
+    patchJsonPositive(value, id) {
+        return axios({
+            method: 'Patch',
+            url: 'http://localhost:3001/regione/' + id,
+            data: {
+                positive: value
+            }
+        });
+    }
+    patchJsonAsinto(value, id) {
+        return axios({
+            method: 'Patch',
+            url: 'http://localhost:3001/regione/' + id,
+            data: {
+                asymptomatic: value
+            }
+        });
+    }
+    patchJsonDeaths(value, id) {
+        return axios({
+            method: 'Patch',
+            url: 'http://localhost:3001/regione/' + id,
+            data: {
+                deaths: value
+            }
+        });
+    }
+
+
 }

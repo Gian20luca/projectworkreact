@@ -15,6 +15,7 @@ module.exports = {
     devServer: {
         port: 3000,
         contentBase: './dist',
+        historyApiFallback: true
     },
     entry: {
         app: ['./src/index.js'],
@@ -22,7 +23,8 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/[name].bundle.js'
+        filename: 'js/[name].bundle.js',
+        publicPath: '/'
     },
     devtool: 'source-map',
     resolve: {
