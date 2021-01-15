@@ -96,7 +96,7 @@ export function MapComponent() {
         imageUrl: dbRegione[e.target.feature.properties.reg_istat_code_num - 1].stemmaSvg,
         imageWidth: 75,
         title:  dbRegione[e.target.feature.properties.reg_istat_code_num - 1].name,
-        html:  '<p>Popolazione: ' +  dbRegione[e.target.feature.properties.reg_istat_code_num - 1].population  + '</p><p>Positivi: ' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].positive + '</p><p> Positivi su popolazione: ' + (dbRegione[e.target.feature.properties.reg_istat_code_num - 1].positive/dbRegione[e.target.feature.properties.reg_istat_code_num - 1].population)*100  + '</p>',
+        html:  '<p>Popolazione: ' +  dbRegione[e.target.feature.properties.reg_istat_code_num - 1].population  + '</p><p>Positivi: ' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].positive + '</p><p> Positivi su popolazione: ' + (dbRegione[e.target.feature.properties.reg_istat_code_num - 1].positive/dbRegione[e.target.feature.properties.reg_istat_code_num - 1].population)*100 + '</p>',
       
         showCloseButton: true,
         showConfirmButton: false,

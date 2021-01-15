@@ -1,31 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { Service } from "../../../service/Service";
 import axios from 'axios';
-export function FormPositive() {
-  const [regione, setRegione] = useState();
-  useEffect(() => {
-    let call = new Service();
+import { Route } from "react-router";
+import { HashRouter, Link } from "react-router-dom";
 
-    call.getGeojsonANDMyDb().then(axios.spread(function (data1, data2, data3) {
-      //setto lo stato del geojson
-       setRegione(predbregione => predbregione = data2.data);
+export function FormComponentThresholds() {
+  // const [regione, setRegione] = useState();
+  // useEffect(() => {
+  //   let call = new Service();
 
-    }));
-  }, [])
+  //   call.getGeojsonANDMyDb().then(axios.spread(function (data1, data2, data3) {
+  //     //setto lo stato del geojson
+  //      setRegione(predbregione => predbregione = data2.data);
+
+  //   }));
+  // }, [])
 
 
   
   return (
-    <form className="container">
-      <label of="region">Select Region :</label>
-      <select id="region" name="region">
-        {regione ? regione.map((item,num) => {
-            return <option value={item.id} key={num}>{item.name}</option>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-12">
+          <HashRouter>
+            <ul>
+              <li><Link className="nav-link" to="/">Positivi</Link></li>
+              <li><Link className="nav-link" to="/Deaths">Decessi</Link></li>
+              <li><Link className="nav-link" to="/Asymptomatic">Asintomatici</Link></li>
+            </ul>
+            <Route exact path="/">
+            <h1>posi</h1>
 
-        }):null}
-      </select>
-      <label of="positive">Number of Positive</label>
-      <input type="number"></input>
-    </form>
+
+            </Route>
+            <Route exact path="/Deaths">
+            <h1>deat</h1>
+
+
+            </Route>
+            <Route exact path="/Asymptomatic">
+             <h1>asin</h1>
+            </Route>
+          </HashRouter>
+        </div>
+      </div>
+    </div>
+   
   );
 }
