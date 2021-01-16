@@ -31,6 +31,9 @@ export class Service {
         })
     }
 
+
+
+    /*----------------------------------------------*/
     patchJsonPositive(value, id) {
         return axios({
             method: 'Patch',
@@ -58,6 +61,18 @@ export class Service {
             }
         });
     }
-
-
+    /*----------------------------------------------------*/
+    patchColor(min, max, maxcolor, mincolor, mediumcolor, id) {
+        return axios({
+            method: 'Patch',
+            url: 'http://localhost:3001/soglie/' + id,
+            data: {
+                minThresholds: min,
+                maxThresholds: max,
+                minColor: mincolor,
+                mediumColor: mediumcolor,
+                maxColor: maxcolor
+            }
+        });
+    }
 }

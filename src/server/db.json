@@ -225,26 +225,26 @@
   "soglie": [
     {
       "id": 1,
-      "minThresholds": 25,
-      "maxThresholds": 50,
-      "minColor": "#eeff00",
-      "mediumColor": "#ff8800",
+      "minThresholds": "25",
+      "maxThresholds": "50",
+      "minColor": "#00ff33",
+      "mediumColor": "#00ccff",
       "maxColor": "#ff0000"
     },
     {
       "id": 2,
       "minThresholds": 25,
       "maxThresholds": 50,
-      "minColor": "#c7c7c7",
+      "minColor": "#fa0000",
       "mediumColor": "#808080",
       "maxColor": "#000000"
     },
     {
       "id": 3,
       "minThresholds": 25,
-      "maxThresholds": 50,
+      "maxThresholds": "55",
       "minColor": "#00bfff",
-      "mediumColor": "#0044ff",
+      "mediumColor": "#ff0505",
       "maxColor": "#010698"
     }
   ]
