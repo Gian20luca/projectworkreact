@@ -156,7 +156,7 @@ export function FormComponentThresholds() {
 
 
     <HashRouter>
-      <div className="container margineSuperiore">
+      <div className="container margineSuperiore animate_ animate__animated animate__bounceInDown">
         <div className="row">
           <div className="col-md-12">
             <ul>

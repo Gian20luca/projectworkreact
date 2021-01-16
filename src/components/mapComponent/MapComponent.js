@@ -190,7 +190,7 @@ export function MapComponent() {
 
 
   return (
-    <div className="container-fluid margineSuperiore">
+    <div className="container-fluid margineSuperiore animate_ animate__animated animate__fadeIn">
       <div className="row">
         <div className="col-md-12">
           <HashRouter>
@@ -204,6 +204,7 @@ export function MapComponent() {
 
 
             <Route exact path="/">
+              <div className="animate_ animate__animated animate__fadeIn">
               {dbSoglie && <div className='divMaxLegend'>
                 <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].minColor }}><small>Zona basso rischio {'0% - ' + dbSoglie[0].minThresholds + '%'}</small></div>
                 <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].mediumColor }}><small>Zona medio rischio {dbSoglie[0].minThresholds + 1 + '% - ' + dbSoglie[0].maxThresholds + '%'}</small></div>
@@ -222,10 +223,12 @@ export function MapComponent() {
                 {geojson && dbRegione && dbSoglie && <GeoJSON style={stylePositivi} onEachFeature={onEachcountryPositive} data={geojson.features}></GeoJSON>}
 
               </MapContainer>
+              </div>
             </Route>
 
 
             <Route exact path="/mapDeaths">
+            <div className="animate_ animate__animated animate__fadeIn">
               {dbSoglie && <div className='divMaxLegend'>
                 <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].minColor, }}><small>Bassa densità decessi {'0% - ' + dbSoglie[1].minThresholds + '%'}</small></div>
                 <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].mediumColor, }}><small>Media densità decessi {dbSoglie[1].minThresholds + 1 + '% - ' + dbSoglie[1].maxThresholds + '%'}</small></div>
@@ -243,10 +246,12 @@ export function MapComponent() {
                 />
                 {geojson && dbRegione && dbSoglie && <GeoJSON style={styleDecessi} onEachFeature={onEachcountryDeaths} data={geojson.features}></GeoJSON>}
               </MapContainer>
+              </div>
             </Route>
 
 
             <Route exact path="/mapAsymptomatic">
+            <div className="animate_ animate__animated animate__fadeIn">
               {dbSoglie && <div className='divMaxLegend'>
                 <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].minColor }}><small>Zona basso rischio {'0% - ' + dbSoglie[2].minThresholds + '%'}</small></div>
                 <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].mediumColor }}><small>Zona medio rischio {dbSoglie[2].minThresholds + 1 + '% - ' + dbSoglie[2].maxThresholds + '%'}</small></div>
@@ -264,6 +269,7 @@ export function MapComponent() {
                 />
                 {geojson && dbRegione && dbSoglie && <GeoJSON style={styleAsintomatici} onEachFeature={onEachcountryAsymptomatic} data={geojson.features}></GeoJSON>}
               </MapContainer>
+              </div>
             </Route>
 
 
