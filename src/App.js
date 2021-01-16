@@ -17,6 +17,9 @@ export function App() {
           <Route exact path="/ManagePositive">
             <ManageComponent/>
           </Route>
+          <Route exact path="/ManageThresholds">
+            <ManageComponent/>
+          </Route>
         <FooterComponent />
       </BrowserRouter>
     </div>
