@@ -1,0 +1,23 @@
+.divFormInput{
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
+
+.divCard{
+    border: 1px solid #dfdfdf; 
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.myBtn{
+    color:white;
+    background-color:#017cff;
+}
+
+.myBtn:hover{
+    color:white;
+    background-color:#0057b3;
+}
+.margineSuperiore{
+    margin-top: 55px;
+  }

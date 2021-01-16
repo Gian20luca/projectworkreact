@@ -4,9 +4,9 @@
       "id": 1,
       "name": "Piemonte",
       "population": 4329008,
-      "positive": "1",
-      "deaths": "4",
-      "asymptomatic": "3",
+      "positive": 2929842,
+      "deaths": 3343533,
+      "asymptomatic": 2536632,
       "stemmaSvg": "http://www.tecnichenormative.it/bandiere/regionali/piemonte.png",
       "uslRegione": "http://www.salute.gov.it/portale/temi/p2_6_11.jsp?lingua=italiano&area=statisticheSSN&menu=vuoto&regione=010",
       "sitoRegione": "https://www.regione.piemonte.it/web/"
@@ -170,9 +170,9 @@
       "id": 16,
       "name": "Puglia",
       "population": 3991140,
-      "positive": 1034894,
-      "deaths": 122345,
-      "asymptomatic": 400213,
+      "positive": 1242344,
+      "deaths": 1232445,
+      "asymptomatic": 2424543,
       "stemmaSvg": "https://upload.wikimedia.org/wikipedia/commons/2/20/Regione_Puglia-Stemma.png",
       "uslRegione": "http://www.salute.gov.it/portale/temi/p2_6_11.jsp?lingua=italiano&area=statisticheSSN&menu=vuoto&regione=160",
       "sitoRegione": "https://www.regione.puglia.it/"
@@ -227,25 +227,25 @@
       "id": 1,
       "minThresholds": 25,
       "maxThresholds": 50,
-      "minColor": "#eeff00",
-      "mediumColor": "#ff8800",
+      "minColor": "#fbff00",
+      "mediumColor": "#ffae00",
       "maxColor": "#ff0000"
     },
     {
       "id": 2,
       "minThresholds": 25,
       "maxThresholds": 50,
-      "minColor": "#c7c7c7",
-      "mediumColor": "#808080",
+      "minColor": "#d6d6d6",
+      "mediumColor": "#a3a3a3",
       "maxColor": "#000000"
     },
     {
       "id": 3,
       "minThresholds": 25,
       "maxThresholds": 50,
-      "minColor": "#00bfff",
-      "mediumColor": "#0044ff",
-      "maxColor": "#010698"
+      "minColor": "#00e1ff",
+      "mediumColor": "#0040ff",
+      "maxColor": "#0300a3"
     }
   ]
 }

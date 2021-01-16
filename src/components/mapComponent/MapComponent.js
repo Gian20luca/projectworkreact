@@ -30,6 +30,7 @@ export function MapComponent() {
     }));
   }, [])
 
+//funzione colori
   const getColor = (positivi, popolazione, idsoglie) => {
     return ((positivi / popolazione) * 100) <= dbSoglie[idsoglie].minThresholds ? dbSoglie[idsoglie].minColor :
       ((positivi / popolazione) * 100) > dbSoglie[idsoglie].minThresholds && ((positivi / popolazione) * 100) <= dbSoglie[idsoglie].maxThresholds ? dbSoglie[idsoglie].mediumColor :
@@ -37,6 +38,7 @@ export function MapComponent() {
           '#FFEDA0';
   };
 
+  //style
   const stylePositivi = (features) => {
     return {
       fillColor: getColor(dbRegione[features.properties.reg_istat_code_num - 1].positive, dbRegione[features.properties.reg_istat_code_num - 1].population, 0),
@@ -66,15 +68,15 @@ export function MapComponent() {
       color: 'black',
     };
   };
+
+  //diverse proprieta dell' onEachFeature
   const highlightFeature = (e) => {
     const layer = e.target;
-
     layer.setStyle({
       weight: 1.2,
       color: 'black',
       fillOpacity: 1,
     });
-    //RegionWindow( e.target.feature.properties.reg_istat_code_num,"Positivi");
   }
 
   const resetHighlight = e => {
@@ -89,10 +91,9 @@ export function MapComponent() {
   };
 
   const zoomToFeaturePositive = () => {
-
     return function (e) {
       const footerLink = document.createElement('div')
-        footerLink.innerHTML = '<a style="margin-right: 200px" href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].sitoRegione +'">Sito ufficiale</a>' + '<a href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].uslRegione +'">Elenco ASL</a>' 
+      footerLink.innerHTML = '<a style="margin-right: 200px" href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].sitoRegione + '" target="_blank">Sito ufficiale</a>' + '<a href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].uslRegione + '" target="_blank" >Elenco ASL</a>'
 
       Swal.fire({
         imageUrl: dbRegione[e.target.feature.properties.reg_istat_code_num - 1].stemmaSvg,
@@ -111,11 +112,11 @@ export function MapComponent() {
       })
     }
   }
-  const zoomToFeatureDeaths = () => {
 
+  const zoomToFeatureDeaths = () => {
     return function (e) {
-       const footerLink = document.createElement('div')
-        footerLink.innerHTML = '<a style="margin-right: 200px" href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].sitoRegione +'">Sito ufficiale</a>' + '<a href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].uslRegione +'">Elenco ASL</a>' 
+      const footerLink = document.createElement('div')
+      footerLink.innerHTML = '<a style="margin-right: 200px" href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].sitoRegione + '"target="_blank">Sito ufficiale</a>' + '<a href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].uslRegione + '"target="_blank">Elenco ASL</a>'
 
       Swal.fire({
         imageUrl: dbRegione[e.target.feature.properties.reg_istat_code_num - 1].stemmaSvg,
@@ -134,11 +135,11 @@ export function MapComponent() {
       })
     }
   }
-  const zoomToFeatureAsymptomatic = () => {
 
+  const zoomToFeatureAsymptomatic = () => {
     return function (e) {
-       const footerLink = document.createElement('div')
-        footerLink.innerHTML = '<a style="margin-right: 200px" href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].sitoRegione +'">Sito ufficiale</a>' + '<a href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].uslRegione +'">Elenco ASL</a>' 
+      const footerLink = document.createElement('div')
+      footerLink.innerHTML = '<a style="margin-right: 200px" href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].sitoRegione + '"target="_blank">Sito ufficiale</a>' + '<a href="' + dbRegione[e.target.feature.properties.reg_istat_code_num - 1].uslRegione + '"target="_blank">Elenco ASL</a>'
 
       Swal.fire({
         imageUrl: dbRegione[e.target.feature.properties.reg_istat_code_num - 1].stemmaSvg,
@@ -158,6 +159,9 @@ export function MapComponent() {
     }
   }
 
+
+
+  //onEachFeatures
   const onEachcountryPositive = (features, layer) => {
     layer.on({
       mouseover: highlightFeature,
@@ -183,28 +187,32 @@ export function MapComponent() {
     layer.bindTooltip(features.properties.reg_name);
   }
 
-  
+
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid margineSuperiore">
       <div className="row">
         <div className="col-md-12">
           <HashRouter>
+
+
             <ul className="ulMap">
               <li><Link className="nav-link linkMap" to="/">Positivi</Link></li>
               <li><Link className="nav-link linkMap" to="/mapDeaths">Decessi</Link></li>
               <li><Link className="nav-link linkMap" to="/mapAsymptomatic">Asintomatici</Link></li>
             </ul>
+
+
             <Route exact path="/">
-            {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegendSmall'style={{borderColor: dbSoglie[0].minColor}}><small>Zona basso rischio {'0% - ' +dbSoglie[0].minThresholds + '%'}</small></div>
-                <div className='divLegendSmall'style={{borderColor: dbSoglie[0].mediumColor}}><small>Zona medio rischio {dbSoglie[0].minThresholds + 1 + '% - ' + dbSoglie[0].maxThresholds + '%'}</small></div>
-                <div className='divLegendSmall'style={{borderColor: dbSoglie[0].maxColor}}><small>Zona alto rischio {dbSoglie[0].maxThresholds + 1 + '% -   100%' } </small></div>
+              {dbSoglie && <div className='divMaxLegend'>
+                <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].minColor }}><small>Zona basso rischio {'0% - ' + dbSoglie[0].minThresholds + '%'}</small></div>
+                <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].mediumColor }}><small>Zona medio rischio {dbSoglie[0].minThresholds + 1 + '% - ' + dbSoglie[0].maxThresholds + '%'}</small></div>
+                <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].maxColor }}><small>Zona alto rischio {dbSoglie[0].maxThresholds + 1 + '% -   100%'} </small></div>
               </div>}
               {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegend' style={{backgroundColor: dbSoglie[0].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{backgroundColor: dbSoglie[0].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{backgroundColor: dbSoglie[0].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%'}} ></div>
+                <div className='divLegend' style={{ backgroundColor: dbSoglie[0].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
+                <div className='divLegend' style={{ backgroundColor: dbSoglie[0].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
+                <div className='divLegend' style={{ backgroundColor: dbSoglie[0].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%' }} ></div>
               </div>}
               <MapContainer id='map' center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
                 <TileLayer
@@ -212,19 +220,21 @@ export function MapComponent() {
                   url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
                 />
                 {geojson && dbRegione && dbSoglie && <GeoJSON style={stylePositivi} onEachFeature={onEachcountryPositive} data={geojson.features}></GeoJSON>}
-              
+
               </MapContainer>
             </Route>
+
+
             <Route exact path="/mapDeaths">
-            {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegendSmall' style={{borderColor: dbSoglie[1].minColor, }}><small>Bassa densità decessi {'0% - ' +dbSoglie[1].minThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{borderColor: dbSoglie[1].mediumColor, }}><small>Media densità decessi {dbSoglie[1].minThresholds + 1 + '% - ' + dbSoglie[1].maxThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{borderColor: dbSoglie[1].maxColor,}}><small>Alta densità decessi {dbSoglie[1].maxThresholds + 1 + '% -   100%' } </small></div>
+              {dbSoglie && <div className='divMaxLegend'>
+                <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].minColor, }}><small>Bassa densità decessi {'0% - ' + dbSoglie[1].minThresholds + '%'}</small></div>
+                <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].mediumColor, }}><small>Media densità decessi {dbSoglie[1].minThresholds + 1 + '% - ' + dbSoglie[1].maxThresholds + '%'}</small></div>
+                <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].maxColor, }}><small>Alta densità decessi {dbSoglie[1].maxThresholds + 1 + '% -   100%'} </small></div>
               </div>}
               {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegend' style={{backgroundColor: dbSoglie[1].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{backgroundColor: dbSoglie[1].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{backgroundColor: dbSoglie[1].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%'}} ></div>
+                <div className='divLegend' style={{ backgroundColor: dbSoglie[1].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
+                <div className='divLegend' style={{ backgroundColor: dbSoglie[1].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
+                <div className='divLegend' style={{ backgroundColor: dbSoglie[1].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%' }} ></div>
               </div>}
               <MapContainer center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
                 <TileLayer
@@ -234,16 +244,18 @@ export function MapComponent() {
                 {geojson && dbRegione && dbSoglie && <GeoJSON style={styleDecessi} onEachFeature={onEachcountryDeaths} data={geojson.features}></GeoJSON>}
               </MapContainer>
             </Route>
+
+
             <Route exact path="/mapAsymptomatic">
-            {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegendSmall' style={{borderColor: dbSoglie[2].minColor}}><small>Zona basso rischio {'0% - ' +dbSoglie[2].minThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{borderColor: dbSoglie[2].mediumColor}}><small>Zona medio rischio {dbSoglie[2].minThresholds + 1 + '% - ' + dbSoglie[2].maxThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{borderColor: dbSoglie[2].maxColor}}><small>Zona alto rischio {dbSoglie[2].maxThresholds + 1 + '% -   100%' } </small></div>
+              {dbSoglie && <div className='divMaxLegend'>
+                <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].minColor }}><small>Zona basso rischio {'0% - ' + dbSoglie[2].minThresholds + '%'}</small></div>
+                <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].mediumColor }}><small>Zona medio rischio {dbSoglie[2].minThresholds + 1 + '% - ' + dbSoglie[2].maxThresholds + '%'}</small></div>
+                <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].maxColor }}><small>Zona alto rischio {dbSoglie[2].maxThresholds + 1 + '% -   100%'} </small></div>
               </div>}
               {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegend' style={{backgroundColor: dbSoglie[2].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{backgroundColor: dbSoglie[2].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{backgroundColor: dbSoglie[2].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%'}} ></div>
+                <div className='divLegend' style={{ backgroundColor: dbSoglie[2].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
+                <div className='divLegend' style={{ backgroundColor: dbSoglie[2].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
+                <div className='divLegend' style={{ backgroundColor: dbSoglie[2].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%' }} ></div>
               </div>}
               <MapContainer center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
                 <TileLayer
@@ -253,6 +265,8 @@ export function MapComponent() {
                 {geojson && dbRegione && dbSoglie && <GeoJSON style={styleAsintomatici} onEachFeature={onEachcountryAsymptomatic} data={geojson.features}></GeoJSON>}
               </MapContainer>
             </Route>
+
+
           </HashRouter>
         </div>
       </div>

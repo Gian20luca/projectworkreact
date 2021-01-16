@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavbarComponent } from "./core/navbarComponent/NavbarComponent";
 import { FooterComponent } from "./core/footerComponent/FooterComponent";
 import { ManageComponent } from "./components/manageComponent/ManageComponent";
+import { ManageComponentThresholds } from "./components/manageComponent/ManageComponentThresholds";
 
 export function App() {
   return (
@@ -14,11 +15,11 @@ export function App() {
           <Route exact path="/">
             <HomeComponent />
           </Route>
-          <Route exact path="/ManagePositive">
+          <Route exact path="/ManageInput">
             <ManageComponent/>
           </Route>
           <Route exact path="/ManageThresholds">
-            <ManageComponent/>
+            <ManageComponentThresholds/>
           </Route>
         <FooterComponent />
       </BrowserRouter>
