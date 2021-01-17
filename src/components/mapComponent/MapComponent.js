@@ -6,8 +6,10 @@ import { Service } from '../../service/Service';
 import axios from 'axios';
 import { HashRouter, Route, Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import { ChartComponent } from '../chartComponent/chartComponent';
+import { LegendComponent } from './legendComponent/LegendComponent';
 
-export function MapComponent() {
+export function MapComponent(props) {
   const [geojson, setGeojson] = useState();
   const [dbRegione, setDbRegione] = useState();
   const [dbSoglie, setDbSoglie] = useState();
@@ -27,10 +29,11 @@ export function MapComponent() {
       console.log(data2.data)
       //Risposta db soglie
       console.log(data3.data)
+
     }));
   }, [])
 
-//funzione colori
+  //funzione colori
   const getColor = (positivi, popolazione, idsoglie) => {
     return ((positivi / popolazione) * 100) <= dbSoglie[idsoglie].minThresholds ? dbSoglie[idsoglie].minColor :
       ((positivi / popolazione) * 100) > dbSoglie[idsoglie].minThresholds && ((positivi / popolazione) * 100) <= dbSoglie[idsoglie].maxThresholds ? dbSoglie[idsoglie].mediumColor :
@@ -189,12 +192,13 @@ export function MapComponent() {
 
 
 
+
   return (
+
     <div className="container-fluid margineSuperiore animate_ animate__animated animate__fadeIn">
       <div className="row">
         <div className="col-md-12">
           <HashRouter>
-
 
             <ul className="ulMap">
               <li><Link className="nav-link linkMap" to="/">Positivi</Link></li>
@@ -202,81 +206,65 @@ export function MapComponent() {
               <li><Link className="nav-link linkMap" to="/mapAsymptomatic">Asintomatici</Link></li>
             </ul>
 
-
             <Route exact path="/">
               <div className="animate_ animate__animated animate__fadeIn">
-              {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].minColor }}><small>Zona basso rischio {'0% - ' + dbSoglie[0].minThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].mediumColor }}><small>Zona medio rischio {dbSoglie[0].minThresholds + 1 + '% - ' + dbSoglie[0].maxThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].maxColor }}><small>Zona alto rischio {dbSoglie[0].maxThresholds + 1 + '% -   100%'} </small></div>
-              </div>}
-              {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegend' style={{ backgroundColor: dbSoglie[0].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{ backgroundColor: dbSoglie[0].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{ backgroundColor: dbSoglie[0].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%' }} ></div>
-              </div>}
-              <MapContainer id='map' center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
-                <TileLayer
-                  attribution='Progetto di: Bellafronte, Caliandro, Verdesca, Colitta &nbsp&nbsp&nbsp'
-                  url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-                />
-                {geojson && dbRegione && dbSoglie && <GeoJSON style={stylePositivi} onEachFeature={onEachcountryPositive} data={geojson.features}></GeoJSON>}
-
-              </MapContainer>
+                <h3>Positivi in Italia</h3>
+                <br></br>
+                <MapContainer id='map' center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
+                  <TileLayer
+                    attribution='Progetto di: Bellafronte, Caliandro, Verdesca, Colitta &nbsp&nbsp&nbsp'
+                    url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+                  />
+                  {geojson && dbRegione && dbSoglie && <GeoJSON style={stylePositivi} onEachFeature={onEachcountryPositive} data={geojson.features}></GeoJSON>}
+                </MapContainer>
+                <LegendComponent />
+                <div className='chart'>
+                  {dbRegione && <ChartComponent />}
+                </div>
               </div>
             </Route>
-
 
             <Route exact path="/mapDeaths">
-            <div className="animate_ animate__animated animate__fadeIn">
-              {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].minColor, }}><small>Bassa densità decessi {'0% - ' + dbSoglie[1].minThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].mediumColor, }}><small>Media densità decessi {dbSoglie[1].minThresholds + 1 + '% - ' + dbSoglie[1].maxThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].maxColor, }}><small>Alta densità decessi {dbSoglie[1].maxThresholds + 1 + '% -   100%'} </small></div>
-              </div>}
-              {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegend' style={{ backgroundColor: dbSoglie[1].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{ backgroundColor: dbSoglie[1].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{ backgroundColor: dbSoglie[1].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%' }} ></div>
-              </div>}
-              <MapContainer center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
-                <TileLayer
-                  attribution='Progetto di: Bellafronte, Caliandro, Verdesca, Colitta &nbsp&nbsp&nbsp'
-                  url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-                />
-                {geojson && dbRegione && dbSoglie && <GeoJSON style={styleDecessi} onEachFeature={onEachcountryDeaths} data={geojson.features}></GeoJSON>}
-              </MapContainer>
+              <div className="animate_ animate__animated animate__fadeIn">
+                <h3>Decessi in Italia</h3>
+                <br></br>
+                <MapContainer center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
+                  <TileLayer
+                    attribution='Progetto di: Bellafronte, Caliandro, Verdesca, Colitta &nbsp&nbsp&nbsp'
+                    url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+                  />
+                  {geojson && dbRegione && dbSoglie && <GeoJSON style={styleDecessi} onEachFeature={onEachcountryDeaths} data={geojson.features}></GeoJSON>}
+                </MapContainer>
+                <LegendComponent />
+                <div className='chart'>
+                  {dbRegione && <ChartComponent />}
+                </div>
               </div>
             </Route>
-
 
             <Route exact path="/mapAsymptomatic">
-            <div className="animate_ animate__animated animate__fadeIn">
-              {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].minColor }}><small>Zona basso rischio {'0% - ' + dbSoglie[2].minThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].mediumColor }}><small>Zona medio rischio {dbSoglie[2].minThresholds + 1 + '% - ' + dbSoglie[2].maxThresholds + '%'}</small></div>
-                <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].maxColor }}><small>Zona alto rischio {dbSoglie[2].maxThresholds + 1 + '% -   100%'} </small></div>
-              </div>}
-              {dbSoglie && <div className='divMaxLegend'>
-                <div className='divLegend' style={{ backgroundColor: dbSoglie[2].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{ backgroundColor: dbSoglie[2].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
-                <div className='divLegend' style={{ backgroundColor: dbSoglie[2].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%' }} ></div>
-              </div>}
-              <MapContainer center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
-                <TileLayer
-                  attribution='Progetto di: Bellafronte, Caliandro, Verdesca, Colitta &nbsp&nbsp&nbsp'
-                  url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-                />
-                {geojson && dbRegione && dbSoglie && <GeoJSON style={styleAsintomatici} onEachFeature={onEachcountryAsymptomatic} data={geojson.features}></GeoJSON>}
-              </MapContainer>
+              <div className="animate_ animate__animated animate__fadeIn">
+                <h3>Asintomatici in Italia</h3>
+                <br></br>
+                <MapContainer center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
+                  <TileLayer
+                    attribution='Progetto di: Bellafronte, Caliandro, Verdesca, Colitta &nbsp&nbsp&nbsp'
+                    url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+                  />
+                  {geojson && dbRegione && dbSoglie && <GeoJSON style={styleAsintomatici} onEachFeature={onEachcountryAsymptomatic} data={geojson.features}></GeoJSON>}
+                </MapContainer>
+                <LegendComponent />
+                <div className='chart'>
+                  {dbRegione && <ChartComponent />}
+                </div>
               </div>
             </Route>
-
 
           </HashRouter>
         </div>
       </div>
     </div>
+
   )
 }
 

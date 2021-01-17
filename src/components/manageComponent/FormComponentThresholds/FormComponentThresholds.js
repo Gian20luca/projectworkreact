@@ -3,9 +3,10 @@ import './FormComponentThresholds.css';
 import { Service } from "../../../service/Service";
 import axios from 'axios';
 import { Route } from "react-router";
-import { HashRouter, Link } from "react-router-dom";
+import { HashRouter, Link, Redirect } from "react-router-dom";
+import Swal from 'sweetalert2';
 
-export function FormComponentThresholds() {
+export function FormComponentThresholds(props) {
   const [regcolor, setRegcolor] = useState({
 
     positivi: {
@@ -32,6 +33,7 @@ export function FormComponentThresholds() {
   });
 
   let patch = new Service.getInstance();
+
   /*-------------------------------------------------------------------------------------- */
   useEffect(() => {
     let call = new Service.getInstance();
@@ -42,24 +44,24 @@ export function FormComponentThresholds() {
         //setto lo stato del geojson
         //setRegione((predbregione) => (predbregione = data3.data));
         setRegcolor(() => ({
-          positivi: {
 
+          positivi: {
             minColor: data3.data[0].minColor,
             mediumColor: data3.data[0].mediumColor,
             maxColor: data3.data[0].maxColor,
             minperc: data3.data[0].minThresholds,
             maxperc: data3.data[0].maxThresholds,
           },
-          decessi: {
 
+          decessi: {
             minColor: data3.data[1].minColor,
             mediumColor: data3.data[1].mediumColor,
             maxColor: data3.data[1].maxColor,
             minperc: data3.data[1].minThresholds,
             maxperc: data3.data[1].maxThresholds,
           },
-          asintomatici: {
 
+          asintomatici: {
             minColor: data3.data[2].minColor,
             mediumColor: data3.data[2].mediumColor,
             maxColor: data3.data[2].maxColor,
@@ -70,6 +72,7 @@ export function FormComponentThresholds() {
       })
     );
   }, []);
+
   /*handle change --------------------------------------------------------------------*/
   const handleChangePositivi = (event) => {
     setRegcolor((prev) => ({
@@ -99,42 +102,157 @@ export function FormComponentThresholds() {
         [event.target.name]: event.target.value,
       }
     }));
-
   };
 
   /*handle submit---------------------------------------------------------------------------------------*/
 
   const handleSubmitPositive = (event) => {
     event.preventDefault();
-
-    postData(
-      regcolor.positivi.minperc,
-      regcolor.positivi.maxperc,
-      regcolor.positivi.maxColor,
-      regcolor.positivi.minColor,
-      regcolor.positivi.mediumColor,
-      1, 'positivi');
-  };
-
-  const handleSubmitAsnto = (event) => {
-    event.preventDefault();
-    postData(regcolor.asintomatici.minperc,
-      regcolor.asintomatici.maxperc,
-      regcolor.asintomatici.maxColor,
-      regcolor.asintomatici.minColor,
-      regcolor.asintomatici.mediumColor,
-      3, 'asintomatici');
+    Swal.fire({
+      title: 'Vuoi davvero aggiornare questi dati?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: `Salva`,
+      denyButtonText: `Annulla`,
+      showClass: {
+        popup: 'animate_ animate__animated animate__zoomIn'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        postData(
+          regcolor.positivi.minperc,
+          regcolor.positivi.maxperc,
+          regcolor.positivi.maxColor,
+          regcolor.positivi.minColor,
+          regcolor.positivi.mediumColor,
+          1, 'positivi');
+        Swal.fire({
+          icon: 'success',
+          title: 'Salvataggio avvenuto con successo',
+          confirmButtonText: 'Vai alla pagina principale',
+          showClass: {
+            popup: 'animate_ animate__animated animate__zoomIn'
+          },
+          hideClass: {
+            popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
+          },
+      },
+      () => {
+        return <Redirect to="/" />
+      })
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: 'error',
+          title: 'I dati non sono stati aggiornati',
+          showClass: {
+            popup: 'animate_ animate__animated animate__jackInTheBox'
+          },
+          hideClass: {
+            popup: 'animate_ animate__animated animate__hinge'
+          },
+      })
+      }
+    })
   };
 
   const handleSubmitDeaths = (event) => {
     event.preventDefault();
-    postData(regcolor.decessi.minperc,
-      regcolor.decessi.maxperc,
-      regcolor.decessi.maxColor,
-      regcolor.decessi.minColor,
-      regcolor.decessi.mediumColor,
-      2, 'decessi');
+  Swal.fire({
+    title: 'Vuoi davvero aggiornare questi dati?',
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: `Salva`,
+    denyButtonText: `Annulla`,
+    showClass: {
+      popup: 'animate_ animate__animated animate__zoomIn'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      postData(regcolor.decessi.minperc,
+        regcolor.decessi.maxperc,
+        regcolor.decessi.maxColor,
+        regcolor.decessi.minColor,
+        regcolor.decessi.mediumColor,
+        2, 'decessi');
+      Swal.fire({
+        icon: 'success',
+        title: 'Salvataggio avvenuto con successo',
+        confirmButtonText: 'Vai alla pagina principale',
+        showClass: {
+          popup: 'animate_ animate__animated animate__zoomIn'
+        },
+        hideClass: {
+          popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
+        },
+    },
+    () => {
+      return <Redirect to="/mapDeaths" />
+    })
+    } else if (result.isDenied) {
+      Swal.fire({
+        icon: 'error',
+        title: 'I dati non sono stati aggiornati',
+        showClass: {
+          popup: 'animate_ animate__animated animate__jackInTheBox'
+        },
+        hideClass: {
+          popup: 'animate_ animate__animated animate__hinge'
+        },
+    })
+    }
+  })
+};
+
+  const handleSubmitAsnto = (event) => {
+      event.preventDefault();
+    Swal.fire({
+      title: 'Vuoi davvero aggiornare questi dati?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: `Salva`,
+      denyButtonText: `Annulla`,
+      showClass: {
+        popup: 'animate_ animate__animated animate__zoomIn'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        postData(regcolor.asintomatici.minperc,
+          regcolor.asintomatici.maxperc,
+          regcolor.asintomatici.maxColor,
+          regcolor.asintomatici.minColor,
+          regcolor.asintomatici.mediumColor,
+          3, 'asintomatici');
+        Swal.fire({
+          icon: 'success',
+          title: 'Salvataggio avvenuto con successo',
+          confirmButtonText: 'Vai alla pagina principale',
+          showClass: {
+            popup: 'animate_ animate__animated animate__zoomIn'
+          },
+          hideClass: {
+            popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
+          },
+      },
+      () => {
+        return <Redirect to="/mapAsymptomatic" />
+      })
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: 'error',
+          title: 'I dati non sono stati aggiornati',
+          showClass: {
+            popup: 'animate_ animate__animated animate__jackInTheBox'
+          },
+          hideClass: {
+            popup: 'animate_ animate__animated animate__hinge'
+          },
+      })
+      }
+    })
   };
+
+  
 
   const postData = (minperc, maxperc, maxC, minC, mediumC, id, tipe) => {
     switch (tipe) {
@@ -147,13 +265,11 @@ export function FormComponentThresholds() {
       case 'asintomatici':
         patch.patchColor(minperc, maxperc, maxC, minC, mediumC, id);
         break;
-
     }
   };
   /*-----------------------------------------------------------------------------------------------------------*/
 
   return (
-
 
     <HashRouter>
       <div className="container margineSuperiore animate_ animate__animated animate__bounceInDown">
@@ -167,149 +283,181 @@ export function FormComponentThresholds() {
           </div>
         </div>
 
-             {/* positivi */}
+        {/* positivi */}
         <Route exact path="/">
           <div className="divInput offset-md-2 col-md-8 offset-md-2 animate_ animate__animated animate__bounceInDown">
             <h3>Positivi</h3>
             <form className='card card-body mt-3' onSubmit={handleSubmitPositive}>
               <div className='row'>
 
-                <div class="col-md-6">
+                <div className="col-md-6">
                   <label>Soglia inferiore:</label>
                   <div>
-                    <div class="input-group mb-3">
+                    <div className="input-group mb-3">
                       <input
+                        min={1}
+                        max={regcolor.positivi.maxperc - 1}
                         type="number"
                         name="minperc"
                         className="form-control"
                         value={regcolor.positivi.minperc}
                         onChange={handleChangePositivi}
                       ></input>
-                      <div class="input-group-append">
-                        <span class="input-group-text">%</span>
+                      <div className="input-group-append">
+                        <span className="input-group-text">%</span>
                       </div>
                     </div>
+                    {regcolor.positivi.minperc < 1 && <small className="form-text text-danger">Inserisci numero maggiore o uguale a 1 </small>}
+                    {regcolor.positivi.minperc >= regcolor.positivi.maxperc && <small className="form-text text-danger">La soglia inferiore non deve essere maggiore o uguale a quella superiore</small>}
                   </div>
                 </div>
 
-                <div class="col-md-6">
+                <div className="col-md-6">
                   <label>Colore primo range:</label>
-                  <input className='form-control' type="color" name="minColor" value={regcolor.positivi.minColor} onChange={handleChangePositivi}></input><br></br>
+                  <input className='form-control' type="color" name="minColor" value={regcolor.positivi.minColor} onChange={handleChangePositivi}></input>
+                  {(regcolor.positivi.minColor === regcolor.positivi.maxColor || regcolor.positivi.minColor === regcolor.positivi.mediumColor) && <small className="form-text text-danger">Inserire un colore diverso </small>}
+                  <br></br>
                 </div>
-                </div>
+              </div>
               <br></br>
 
-              <div class="row">
-                <div class="col-md-6">
+              <div className="row">
+                <div className="col-md-6">
                   <label>Soglia superiore:</label>
-                  <div class="input-group mb-3">
+                  <div className="input-group mb-3">
                     <input
+                      min={regcolor.positivi.minperc}
+                      max={99}
                       type="number"
                       name="maxperc"
                       className="form-control"
                       value={regcolor.positivi.maxperc}
                       onChange={handleChangePositivi}
                     ></input>
-                    <div class="input-group-append">
-                      <span class="input-group-text">%</span>
+                    <div className="input-group-append">
+                      <span className="input-group-text">%</span>
                     </div>
                   </div>
+                  {regcolor.positivi.maxperc <= regcolor.positivi.minperc && <small className="form-text text-danger"> Inserisci numero maggiore della soglia inferiore</small>}
+                  {regcolor.positivi.maxperc > 99 && <small className="form-text text-danger">La soglia superiore non può superare il 99%</small>}
                 </div>
 
-                <div class="col-md-6">
+                <div className="col-md-6">
                   <label>Colore secondo range:</label>
-                  <input className='form-control' type="color" name="mediumColor" value={regcolor.positivi.mediumColor} onChange={handleChangePositivi}></input><br></br>
+                  <input className='form-control' type="color" name="mediumColor" value={regcolor.positivi.mediumColor} onChange={handleChangePositivi}></input>
+                  {(regcolor.positivi.mediumColor === regcolor.positivi.maxColor || regcolor.positivi.minColor === regcolor.positivi.mediumColor) && <small className="form-text text-danger">Inserire un colore diverso </small>}
+                  <br></br>
                 </div>
               </div>
               <br></br>
 
-              <div class="row">
-                <div class="offset-md-6 col-md-6">
+              <div className="row">
+                <div className="offset-md-6 col-md-6">
                   <label>Colore terzo range:</label>
-                  <input className='form-control' type="color" name="maxColor" value={regcolor.positivi.maxColor} onChange={handleChangePositivi}></input><br></br>
+                  <input className='form-control' type="color" name="maxColor" value={regcolor.positivi.maxColor} onChange={handleChangePositivi}></input>
+                  {(regcolor.positivi.minColor === regcolor.positivi.maxColor || regcolor.positivi.maxColor === regcolor.positivi.mediumColor) && <small className="form-text text-danger">Inserire un colore diverso </small>}
+                  <br></br>
                 </div>
               </div>
               <br></br>
 
-              <div class="row justify-content-center">
-                <div class=" col-md-10 ">
-                <input type="submit" className="btn myBtn btn-block"></input>
-                  
+              <div className="row justify-content-center">
+                <div className=" col-md-10 ">
+                  <input type="submit" className="btn myBtn btn-block" disabled={regcolor.positivi.minperc < 1 || regcolor.positivi.minperc >= regcolor.positivi.maxperc
+                    || regcolor.positivi.maxperc <= regcolor.positivi.minperc || regcolor.positivi.maxperc > 99 || regcolor.positivi.minColor === regcolor.positivi.maxColor
+                    || regcolor.positivi.minColor === regcolor.positivi.mediumColor || regcolor.positivi.mediumColor === regcolor.positivi.maxColor}
+                  ></input>
                 </div>
               </div>
-
             </form>
           </div>
         </Route>
 
 
-              {/* decessi */}
-         <Route exact path="/Deaths">
-         <div className="divInput offset-md-2 col-md-8 offset-md-2 animate_ animate__animated animate__bounceInDown">
+        {/* decessi */}
+        <Route exact path="/Deaths">
+          <div className="divInput offset-md-2 col-md-8 offset-md-2 animate_ animate__animated animate__bounceInDown">
             <h3>Decessi</h3>
             <form className='card card-body mt-3' onSubmit={handleSubmitDeaths}>
               <div className='row'>
 
-                <div class="col-md-6">
+                <div className="col-md-6">
                   <label>Soglia inferiore:</label>
                   <div>
-                    <div class="input-group mb-3">
+                    <div className="input-group mb-3">
                       <input
+                        min={1}
+                        max={regcolor.decessi.maxperc - 1}
                         type="number"
                         name="minperc"
                         className="form-control"
                         value={regcolor.decessi.minperc}
                         onChange={handleChangeDecessi}
                       ></input>
-                      <div class="input-group-append">
-                        <span class="input-group-text">%</span>
+                      <div className="input-group-append">
+                        <span className="input-group-text">%</span>
                       </div>
                     </div>
+                    {regcolor.decessi.minperc < 1 && <small className="form-text text-danger">Inserisci numero maggiore o uguale a 1 </small>}
+                    {regcolor.decessi.minperc >= regcolor.decessi.maxperc && <small className="form-text text-danger">La soglia inferiore non deve essere maggiore o uguale a quella superiore</small>}
+
                   </div>
                 </div>
 
-                <div class="col-md-6">
+                <div className="col-md-6">
                   <label>Colore primo range:</label>
-                  <input className='form-control' type="color" name="minColor" value={regcolor.decessi.minColor} onChange={handleChangeDecessi}></input><br></br>
+                  <input className='form-control' type="color" name="minColor" value={regcolor.decessi.minColor} onChange={handleChangeDecessi}></input>
+                  {(regcolor.decessi.minColor === regcolor.decessi.maxColor || regcolor.decessi.minColor === regcolor.decessi.mediumColor) && <small className="form-text text-danger">Inserire un colore diverso </small>}
+                  <br></br>
                 </div>
-                </div>
+              </div>
               <br></br>
 
-              <div class="row">
-                <div class="col-md-6">
+              <div className="row">
+                <div className="col-md-6">
                   <label>Soglia superiore:</label>
-                  <div class="input-group mb-3">
+                  <div className="input-group mb-3">
                     <input
+                      min={regcolor.decessi.minperc}
+                      max={99}
                       type="number"
                       name="maxperc"
                       className="form-control"
                       value={regcolor.decessi.maxperc}
                       onChange={handleChangeDecessi}
                     ></input>
-                    <div class="input-group-append">
-                      <span class="input-group-text">%</span>
+                    <div className="input-group-append">
+                      <span className="input-group-text">%</span>
                     </div>
                   </div>
+                  {regcolor.decessi.maxperc <= regcolor.decessi.minperc && <small className="form-text text-danger"> Inserisci numero maggiore della soglia inferiore</small>}
+                  {regcolor.decessi.maxperc > 99 && <small className="form-text text-danger">La soglia superiore non può superare il 99%</small>}
                 </div>
 
-                <div class="col-md-6">
+                <div className="col-md-6">
                   <label>Colore secondo range:</label>
-                  <input className='form-control' type="color" name="mediumColor" value={regcolor.decessi.mediumColor} onChange={handleChangeDecessi}></input><br></br>
+                  <input className='form-control' type="color" name="mediumColor" value={regcolor.decessi.mediumColor} onChange={handleChangeDecessi}></input>
+                  {(regcolor.decessi.mediumColor === regcolor.decessi.maxColor || regcolor.decessi.minColor === regcolor.decessi.mediumColor) && <small className="form-text text-danger">Inserire un colore diverso </small>}
+                  <br></br>
                 </div>
               </div>
               <br></br>
 
-              <div class="row">
-                <div class="offset-md-6 col-md-6">
+              <div className="row">
+                <div className="offset-md-6 col-md-6">
                   <label>Colore terzo range:</label>
-                  <input className='form-control' type="color" name="maxColor" value={regcolor.decessi.maxColor} onChange={handleChangeDecessi}></input><br></br>
+                  <input className='form-control' type="color" name="maxColor" value={regcolor.decessi.maxColor} onChange={handleChangeDecessi}></input>
+                  {(regcolor.decessi.minColor === regcolor.decessi.maxColor || regcolor.decessi.maxColor === regcolor.decessi.mediumColor) && <small className="form-text text-danger">Inserire un colore diverso </small>}
+                  <br></br>
                 </div>
               </div>
               <br></br>
 
-              <div class="row justify-content-center">
-                <div class=" col-md-10 ">
-                  <input type="submit" className="btn myBtn btn-block"></input>
+              <div className="row justify-content-center">
+                <div className=" col-md-10 ">
+                  <input type="submit" className="btn myBtn btn-block" disabled={regcolor.decessi.minperc < 1 || regcolor.decessi.minperc >= regcolor.decessi.maxperc
+                    || regcolor.decessi.maxperc <= regcolor.decessi.minperc || regcolor.decessi.maxperc > 99 || regcolor.decessi.minColor === regcolor.decessi.maxColor
+                    || regcolor.decessi.minColor === regcolor.decessi.mediumColor || regcolor.decessi.mediumColor === regcolor.decessi.maxColor}></input>
                 </div>
               </div>
 
@@ -317,80 +465,97 @@ export function FormComponentThresholds() {
           </div>
         </Route>
 
-            {/* asintomatici */}
+        {/* asintomatici */}
         <Route exact path="/Asymptomatic">
-        <div className="divInput offset-md-2 col-md-8 offset-md-2 animate_ animate__animated animate__bounceInDown">
+          <div className="divInput offset-md-2 col-md-8 offset-md-2 animate_ animate__animated animate__bounceInDown">
             <h3>Asintomatici</h3>
             <form className='card card-body mt-3' onSubmit={handleSubmitAsnto}>
               <div className='row'>
 
-                <div class="col-md-6">
+                <div className="col-md-6">
                   <label>Soglia inferiore:</label>
                   <div>
-                    <div class="input-group mb-3">
+                    <div className="input-group mb-3">
                       <input
+                        min={1}
+                        max={regcolor.asintomatici.maxperc - 1}
                         type="number"
                         name="minperc"
                         className="form-control"
                         value={regcolor.asintomatici.minperc}
                         onChange={handleChangeAsinto}
                       ></input>
-                      <div class="input-group-append">
-                        <span class="input-group-text">%</span>
+                      <div className="input-group-append">
+                        <span className="input-group-text">%</span>
                       </div>
                     </div>
+                    {regcolor.asintomatici.minperc < 1 && <small className="form-text text-danger">Inserisci numero maggiore o uguale a 1 </small>}
+                    {regcolor.asintomatici.minperc >= regcolor.asintomatici.maxperc && <small className="form-text text-danger">La soglia inferiore non deve essere maggiore o uguale a quella superiore</small>}
+
                   </div>
                 </div>
 
-                <div class="col-md-6">
+                <div className="col-md-6">
                   <label>Colore primo range:</label>
-                  <input className='form-control' type="color" name="minColor" value={regcolor.asintomatici.minColor} onChange={handleChangeAsinto}></input><br></br>
+                  <input className='form-control' type="color" name="minColor" value={regcolor.asintomatici.minColor} onChange={handleChangeAsinto}></input>
+                  {(regcolor.asintomatici.minColor === regcolor.asintomatici.maxColor || regcolor.asintomatici.minColor === regcolor.asintomatici.mediumColor) && <small className="form-text text-danger">Inserire un colore diverso </small>}
+                  <br></br>
                 </div>
-                </div>
+              </div>
               <br></br>
 
-              <div class="row">
-                <div class="col-md-6">
+              <div className="row">
+                <div className="col-md-6">
                   <label>Soglia superiore:</label>
-                  <div class="input-group mb-3">
+                  <div className="input-group mb-3">
                     <input
+                      min={regcolor.asintomatici.minperc}
+                      max={99}
                       type="number"
                       name="maxperc"
                       className="form-control"
                       value={regcolor.asintomatici.maxperc}
                       onChange={handleChangeAsinto}
                     ></input>
-                    <div class="input-group-append">
-                      <span class="input-group-text">%</span>
+                    <div className="input-group-append">
+                      <span className="input-group-text">%</span>
                     </div>
                   </div>
+                  {regcolor.asintomatici.maxperc <= regcolor.asintomatici.minperc && <small className="form-text text-danger"> Inserisci numero maggiore della soglia inferiore</small>}
+                  {regcolor.asintomatici.maxperc > 99 && <small className="form-text text-danger">La soglia superiore non può superare il 99%</small>}
                 </div>
 
-                <div class="col-md-6">
+                <div className="col-md-6">
                   <label>Colore secondo range:</label>
-                  <input className='form-control' type="color" name="mediumColor" value={regcolor.asintomatici.mediumColor} onChange={handleChangeAsinto}></input><br></br>
+                  <input className='form-control' type="color" name="mediumColor" value={regcolor.asintomatici.mediumColor} onChange={handleChangeAsinto}></input>
+                  {(regcolor.asintomatici.mediumColor === regcolor.asintomatici.maxColor || regcolor.asintomatici.minColor === regcolor.asintomatici.mediumColor) && <small className="form-text text-danger">Inserire un colore diverso </small>}
+                  <br></br>
                 </div>
               </div>
               <br></br>
 
-              <div class="row">
-                <div class="offset-md-6 col-md-6">
+              <div className="row">
+                <div className="offset-md-6 col-md-6">
                   <label>Colore terzo range:</label>
-                  <input className='form-control' type="color" name="maxColor" value={regcolor.asintomatici.maxColor} onChange={handleChangeAsinto}></input><br></br>
+                  <input className='form-control' type="color" name="maxColor" value={regcolor.asintomatici.maxColor} onChange={handleChangeAsinto}></input>
+                  {(regcolor.asintomatici.minColor === regcolor.asintomatici.maxColor || regcolor.asintomatici.maxColor === regcolor.asintomatici.mediumColor) && <small className="form-text text-danger">Inserire un colore diverso </small>}
+                  <br></br>
                 </div>
               </div>
               <br></br>
 
-              <div class="row justify-content-center">
-                <div class=" col-md-10 ">
-                  <input type="submit" className="btn myBtn btn-block"></input>
+              <div className="row justify-content-center">
+                <div className=" col-md-10 ">
+                  <input type="submit" className="btn myBtn btn-block" disabled={regcolor.asintomatici.minperc < 1 || regcolor.asintomatici.minperc >= regcolor.asintomatici.maxperc
+                    || regcolor.asintomatici.maxperc <= regcolor.asintomatici.minperc || regcolor.asintomatici.maxperc > 99 || regcolor.asintomatici.minColor === regcolor.asintomatici.maxColor
+                    || regcolor.asintomatici.minColor === regcolor.asintomatici.mediumColor || regcolor.asintomatici.mediumColor === regcolor.decessi.maxColor}></input>
                 </div>
               </div>
 
             </form>
           </div>
-        </Route> 
+        </Route>
       </div >
-        </HashRouter >
+    </HashRouter >
   );
 }
