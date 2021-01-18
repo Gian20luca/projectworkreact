@@ -36,9 +36,6 @@ export function NavbarComponent() {
             <Link className="linkNav  nav-item nav-link" to="/ManageThresholds">
               Manage Thresholds
             </Link>
-            <Link className="linkNav  nav-item nav-link" to="/Team">
-              Team
-            </Link>
           </div>
         </div>
       </div>

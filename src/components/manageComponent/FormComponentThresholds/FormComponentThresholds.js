@@ -33,9 +33,10 @@ export function FormComponentThresholds(props) {
   });
 
   let patch = new Service.getInstance();
-
+  let { history } = props;
   /*-------------------------------------------------------------------------------------- */
   useEffect(() => {
+    
     let call = new Service.getInstance();
 
     call.getGeojsonANDMyDb().then(
@@ -79,7 +80,7 @@ export function FormComponentThresholds(props) {
       ...prev,
       positivi: {
         ...prev.positivi,
-        [event.target.name]: event.target.type === 'number' ? Number(event.target.value) : event.target.value,
+        [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value) : event.target.value,
       }
     }));
   };
@@ -88,7 +89,7 @@ export function FormComponentThresholds(props) {
       ...prev,
       asintomatici: {
         ...prev.asintomatici,
-        [event.target.name]: event.target.type === 'number' ? Number(event.target.value) : event.target.value,
+        [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value) : event.target.value,
       }
     }));
 
@@ -98,7 +99,7 @@ export function FormComponentThresholds(props) {
       ...prev,
       decessi: {
         ...prev.decessi,
-       [event.target.name]: event.target.type === 'number' ? Number(event.target.value) : event.target.value,
+       [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value) : event.target.value,
       }
     }));
   };
@@ -186,7 +187,7 @@ export function FormComponentThresholds(props) {
         },
     },
     () => {
-      return <Redirect to="/mapDeaths" />
+      return history.push('/mapDeaths');
     })
     } else if (result.isDenied) {
       Swal.fire({
@@ -327,7 +328,7 @@ export function FormComponentThresholds(props) {
                         type="number"
                         name="minperc"
                         className="form-control"
-                        value={parseInt(regcolor.positivi.minperc)}
+                        value={regcolor.positivi.minperc}
                         onChange={handleChangePositivi}
                       ></input>
                       <div className="input-group-append">
@@ -336,19 +337,18 @@ export function FormComponentThresholds(props) {
                     </div>
                     {regcolor.positivi.minperc < 1 && (
                       <small className="form-text text-danger">
-                        Inserisci numero maggiore o uguale a 1{" "}
+                        Inserisci soglia maggiore o uguale a 1%.{" "}
                       </small>
                     )}
                     {regcolor.positivi.minperc >= regcolor.positivi.maxperc &&
                       regcolor.positivi.minperc < 97 && (
                         <small className="form-text text-danger">
-                          La soglia inferiore non deve essere maggiore o uguale
-                          a quella superiore
+                          Inserire soglia minore della soglia superiore.
                         </small>
                       )}
                     {regcolor.positivi.minperc >= 97 && (
                       <small className="form-text text-danger">
-                        Inserisci numero minore o uguale a 96
+                        Inserire soglia minore o uguale a 96%.
                       </small>
                     )}
                   </div>
@@ -368,7 +368,7 @@ export function FormComponentThresholds(props) {
                     regcolor.positivi.minColor ===
                       regcolor.positivi.mediumColor) && (
                     <small className="form-text text-danger">
-                      Inserire un colore diverso{" "}
+                      Inserire colore diverso.{" "}
                     </small>
                   )}
                   <br></br>
@@ -408,14 +408,14 @@ export function FormComponentThresholds(props) {
                     regcolor.positivi.minperc + 1 &&(
                     <small className="form-text text-danger">
                       {" "}
-                      Il numero non puo essere uguale
+                      Soglia media errata. Inserire soglia superiore maggiore.
                     </small>
                   )}
 
                   {  regcolor.positivi.minperc+1 > regcolor.positivi.maxperc-1 &&(
                     <small className="form-text text-danger">
                       {" "}
-                      Il numero non puo essere minore
+                      Soglia media errata. Inserire soglia superiore maggiore.
                     </small>
                   )}
                  
@@ -436,7 +436,7 @@ export function FormComponentThresholds(props) {
                     regcolor.positivi.minColor ===
                       regcolor.positivi.mediumColor) && (
                     <small className="form-text text-danger">
-                      Inserire un colore diverso{" "}
+                      Inserire colore diverso.{" "}
                     </small>
                   )}
                   <br></br>
@@ -455,7 +455,7 @@ export function FormComponentThresholds(props) {
                       name="maxperc"
                       data-type='number'
                       className="form-control"
-                      value={parseInt(regcolor.positivi.maxperc)}
+                      value={regcolor.positivi.maxperc}
                       onChange={handleChangePositivi}
                     ></input>
                     <div className="input-group-append">
@@ -465,18 +465,12 @@ export function FormComponentThresholds(props) {
                   {regcolor.positivi.maxperc <= regcolor.positivi.minperc && (
                     <small className="form-text text-danger">
                       {" "}
-                      Inserisci numero maggiore della soglia inferiore
+                      Inserire soglia maggiore della soglia inferiore.
                     </small>
                   )}
                   {regcolor.positivi.maxperc > 99 && (
                     <small className="form-text text-danger">
-                      La soglia superiore non può superare il 99%
-                    </small>
-                  )}
-                  {regcolor.positivi.maxperc < regcolor.positivi.minperc && (
-                    <small className="form-text text-danger">
-                      La soglia superiore non può essere inferiore o uguale a
-                      quella media
+                      La soglia superiore non può superare il 99%.
                     </small>
                   )}
                 </div>
@@ -509,7 +503,7 @@ export function FormComponentThresholds(props) {
                     regcolor.positivi.maxColor ===
                       regcolor.positivi.mediumColor) && (
                     <small className="form-text text-danger">
-                      Inserire un colore diverso{" "}
+                      Inserire colore diverso.{" "}
                     </small>
                   )}
                   <br></br>
@@ -576,7 +570,7 @@ export function FormComponentThresholds(props) {
                         type="number"
                         name="minperc"
                         className="form-control"
-                        value={parseInt(regcolor.decessi.minperc)}
+                        value={regcolor.decessi.minperc}
                         onChange={handleChangeDecessi}
                       ></input>
                       <div className="input-group-append">
@@ -585,19 +579,18 @@ export function FormComponentThresholds(props) {
                     </div>
                     {regcolor.decessi.minperc < 1 && (
                       <small className="form-text text-danger">
-                        Inserisci numero maggiore o uguale a 1{" "}
+                        Inserire soglia maggiore o uguale a 1%.{" "}
                       </small>
                     )}
                     {regcolor.decessi.minperc >= regcolor.decessi.maxperc &&
                       regcolor.decessi.minperc < 97 && (
                         <small className="form-text text-danger">
-                          La soglia inferiore non deve essere maggiore o uguale
-                          a quella superiore
+                          Inserire soglia minore della soglia superiore.
                         </small>
                       )}
                     {regcolor.decessi.minperc >= 97 && (
                       <small className="form-text text-danger">
-                        Inserisci numero minore o uguale a 96
+                        Inserire soglia minore o uguale a 96%.
                       </small>
                     )}
                   </div>
@@ -616,7 +609,7 @@ export function FormComponentThresholds(props) {
                     regcolor.decessi.minColor ===
                       regcolor.decessi.mediumColor) && (
                     <small className="form-text text-danger">
-                      Inserire un colore diverso{" "}
+                      Inserire colore diverso.{" "}
                     </small>
                   )}
                   <br></br>
@@ -657,14 +650,14 @@ export function FormComponentThresholds(props) {
                     regcolor.decessi.minperc + 1 &&(
                     <small className="form-text text-danger">
                       {" "}
-                      Il numero non puo essere uguale
+                      Soglia media errata. Inserire soglia superiore maggiore.
                     </small>
                   )}
 
                   {  regcolor.decessi.minperc+1 > regcolor.decessi.maxperc-1 &&(
                     <small className="form-text text-danger">
                       {" "}
-                      Il numero non puo essere minore
+                      Soglia media errata. Inserire soglia superiore maggiore.
                     </small>
                   )}
                 </div>
@@ -683,7 +676,7 @@ export function FormComponentThresholds(props) {
                     regcolor.decessi.minColor ===
                       regcolor.decessi.mediumColor) && (
                     <small className="form-text text-danger">
-                      Inserire un colore diverso{" "}
+                      Inserire colore diverso.{" "}
                     </small>
                   )}
                   <br></br>
@@ -701,7 +694,7 @@ export function FormComponentThresholds(props) {
                       type="number"
                       name="maxperc"
                       className="form-control"
-                      value={parseInt(regcolor.decessi.maxperc)}
+                      value={regcolor.decessi.maxperc}
                       onChange={handleChangeDecessi}
                     ></input>
                     <div className="input-group-append">
@@ -711,18 +704,12 @@ export function FormComponentThresholds(props) {
                   {regcolor.decessi.maxperc <= regcolor.decessi.minperc && (
                     <small className="form-text text-danger">
                       {" "}
-                      Inserisci numero maggiore della soglia inferiore
+                      Inserire soglia maggiore della soglia inferiore.
                     </small>
                   )}
                   {regcolor.decessi.maxperc > 99 && (
                     <small className="form-text text-danger">
-                      La soglia superiore non può superare il 99%
-                    </small>
-                  )}
-                  {regcolor.decessi.maxperc < regcolor.decessi.minperc && (
-                    <small className="form-text text-danger">
-                      La soglia superiore non può essere inferiore o uguale a
-                      quella media
+                      La soglia superiore non può superare il 99%.
                     </small>
                   )}
                 </div>
@@ -754,7 +741,7 @@ export function FormComponentThresholds(props) {
                     regcolor.decessi.maxColor ===
                       regcolor.decessi.mediumColor) && (
                     <small className="form-text text-danger">
-                      Inserire un colore diverso{" "}
+                      Inserire colore diverso.{" "}
                     </small>
                   )}
                   <br></br>
@@ -820,7 +807,7 @@ export function FormComponentThresholds(props) {
                         type="number"
                         name="minperc"
                         className="form-control"
-                        value={parseInt(regcolor.asintomatici.minperc)}
+                        value={regcolor.asintomatici.minperc}
                         onChange={handleChangeAsinto}
                       ></input>
                       <div className="input-group-append">
@@ -829,20 +816,19 @@ export function FormComponentThresholds(props) {
                     </div>
                     {regcolor.asintomatici.minperc < 1 && (
                       <small className="form-text text-danger">
-                        Inserisci numero maggiore o uguale a 1{" "}
+                        Inserire soglia maggiore o uguale a 1%.{" "}
                       </small>
                     )}
                     {regcolor.asintomatici.minperc >=
                       regcolor.asintomatici.maxperc &&
                       regcolor.asintomatici.minperc < 97 && (
                         <small className="form-text text-danger">
-                          La soglia inferiore non deve essere maggiore o uguale
-                          a quella superiore
+                          Inserire soglia minore della soglia superiore.
                         </small>
                       )}
                     {regcolor.asintomatici.minperc >= 97 && (
                       <small className="form-text text-danger">
-                        Inserisci numero minore o uguale a 96
+                        Inserire soglia minore o uguale a 96%.
                       </small>
                     )}
                   </div>
@@ -862,7 +848,7 @@ export function FormComponentThresholds(props) {
                     regcolor.asintomatici.minColor ===
                       regcolor.asintomatici.mediumColor) && (
                     <small className="form-text text-danger">
-                      Inserire un colore diverso{" "}
+                      Inserire colore diverso.{" "}
                     </small>
                   )}
                   <br></br>
@@ -902,14 +888,14 @@ export function FormComponentThresholds(props) {
                     regcolor.asintomatici.minperc + 1 &&(
                     <small className="form-text text-danger">
                       {" "}
-                      Il numero non puo essere uguale
+                      Soglia media errata. Inserire soglia superiore maggiore.
                     </small>
                   )}
 
                   {  regcolor.asintomatici.minperc+1 > regcolor.asintomatici.maxperc-1 &&(
                     <small className="form-text text-danger">
                       {" "}
-                      Il numero non puo essere minore
+                      Soglia media errata. Inserire soglia superiore maggiore.
                     </small>
                   )}
                 </div>
@@ -928,7 +914,7 @@ export function FormComponentThresholds(props) {
                     regcolor.asintomatici.minColor ===
                       regcolor.asintomatici.mediumColor) && (
                     <small className="form-text text-danger">
-                      Inserire un colore diverso{" "}
+                      Inserire colore diverso.{" "}
                     </small>
                   )}
                   <br></br>
@@ -946,7 +932,7 @@ export function FormComponentThresholds(props) {
                       type="number"
                       name="maxperc"
                       className="form-control"
-                      value={parseInt(regcolor.asintomatici.maxperc)}
+                      value={regcolor.asintomatici.maxperc}
                       onChange={handleChangeAsinto}
                     ></input>
                     <div className="input-group-append">
@@ -957,19 +943,12 @@ export function FormComponentThresholds(props) {
                     regcolor.asintomatici.minperc && (
                     <small className="form-text text-danger">
                       {" "}
-                      Inserisci numero maggiore della soglia inferiore
+                      Inserire soglia maggiore della soglia inferiore.
                     </small>
                   )}
                   {regcolor.asintomatici.maxperc > 99 && (
                     <small className="form-text text-danger">
-                      La soglia superiore non può superare il 99%
-                    </small>
-                  )}
-                  {regcolor.asintomatici.maxperc <
-                    regcolor.asintomatici.minperc && (
-                    <small className="form-text text-danger">
-                      La soglia superiore non può essere inferiore o uguale a
-                      quella media
+                      La soglia superiore non può superare il 99%.
                     </small>
                   )}
                 </div>
@@ -1002,7 +981,7 @@ export function FormComponentThresholds(props) {
                     regcolor.asintomatici.maxColor ===
                       regcolor.asintomatici.mediumColor) && (
                     <small className="form-text text-danger">
-                      Inserire un colore diverso{" "}
+                      Inserire colore diverso.{" "}
                     </small>
                   )}
                   <br></br>

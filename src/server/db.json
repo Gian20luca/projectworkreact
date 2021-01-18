@@ -4,9 +4,9 @@
       "id": 1,
       "name": "Piemonte",
       "population": 4329008,
-      "positive": 1,
+      "positive": 2332323,
       "deaths": 1,
-      "asymptomatic": 1,
+      "asymptomatic": 2122321,
       "stemmaSvg": "http://www.tecnichenormative.it/bandiere/regionali/piemonte.png",
       "uslRegione": "http://www.salute.gov.it/portale/temi/p2_6_11.jsp?lingua=italiano&area=statisticheSSN&menu=vuoto&regione=010",
       "sitoRegione": "https://www.regione.piemonte.it/web/"
@@ -15,7 +15,7 @@
       "id": 2,
       "name": "Valle d'Aosta",
       "population": 124968,
-      "positive": 1,
+      "positive": 111111,
       "deaths": 9000,
       "asymptomatic": 12006,
       "stemmaSvg": "http://www.comuni-italiani.it/02/stemma.jpg",
@@ -225,27 +225,27 @@
   "soglie": [
     {
       "id": 1,
-      "minThresholds": 56,
-      "maxThresholds": 65,
-      "minColor": "#ffffff",
-      "mediumColor": "#ae9898",
+      "minThresholds": 25,
+      "maxThresholds": 50,
+      "minColor": "#ddff00",
+      "mediumColor": "#ffa200",
       "maxColor": "#ff0000"
     },
     {
       "id": 2,
-      "minThresholds": 68,
-      "maxThresholds": 99,
-      "minColor": "#a75252",
-      "mediumColor": "#552a2a",
+      "minThresholds": 25,
+      "maxThresholds": 50,
+      "minColor": "#e6e6e6",
+      "mediumColor": "#a3a3a3",
       "maxColor": "#000000"
     },
     {
       "id": 3,
-      "minThresholds": 64,
-      "maxThresholds": 78,
+      "minThresholds": 25,
+      "maxThresholds": 50,
       "minColor": "#00e1ff",
-      "mediumColor": "#2e3b61",
-      "maxColor": "#ffffff"
+      "mediumColor": "#0040ff",
+      "maxColor": "#160085"
     }
   ]
 }
