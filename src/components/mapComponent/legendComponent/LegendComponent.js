@@ -21,12 +21,12 @@ export const LegendComponent = (props) => {
                 <div className='divLegendAll'>
                     {dbSoglie && <div className='divMaxLegend'>
                         <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].minColor }}><small>Zona basso rischio {'0% - ' + dbSoglie[0].minThresholds + '%'}</small></div>
-                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].mediumColor }}><small>Zona medio rischio {dbSoglie[0].minThresholds + 1 + '% - ' + dbSoglie[0].maxThresholds + '%'}</small></div>
-                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].maxColor }}><small>Zona alto rischio {dbSoglie[0].maxThresholds + 1 + '% -   100%'} </small></div>
+                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].mediumColor }}><small>Zona medio rischio {dbSoglie[0].minThresholds + 1 + '% - ' + (dbSoglie[0].maxThresholds - 1) + '%'}</small></div>
+                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[0].maxColor }}><small>Zona alto rischio {dbSoglie[0].maxThresholds + '% -   100%'} </small></div>
                     </div>}
                     {dbSoglie && <div className='divMaxLegend'>
                         <div className='divLegend' style={{ backgroundColor: dbSoglie[0].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
-                        <div className='divLegend' style={{ backgroundColor: dbSoglie[0].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
+                        <div className='divLegend' style={{ backgroundColor: dbSoglie[0].mediumColor, width: (dbSoglie[0].maxThresholds - 1) - (dbSoglie[0].minThresholds + 1 )+ '%' }}></div>
                         <div className='divLegend' style={{ backgroundColor: dbSoglie[0].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%' }} ></div>
                     </div>}
                 </div>
@@ -36,13 +36,13 @@ export const LegendComponent = (props) => {
                 <div className='divLegendAll'>
                     {dbSoglie && <div className='divMaxLegend'>
                         <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].minColor, }}><small>Bassa densità decessi {'0% - ' + dbSoglie[1].minThresholds + '%'}</small></div>
-                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].mediumColor, }}><small>Media densità decessi {dbSoglie[1].minThresholds + 1 + '% - ' + dbSoglie[1].maxThresholds + '%'}</small></div>
-                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].maxColor, }}><small>Alta densità decessi {dbSoglie[1].maxThresholds + 1 + '% -   100%'} </small></div>
+                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].mediumColor, }}><small>Media densità decessi {dbSoglie[1].minThresholds + 1 + '% - ' + (dbSoglie[1].maxThresholds - 1)+ '%'}</small></div>
+                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[1].maxColor, }}><small>Alta densità decessi {dbSoglie[1].maxThresholds  + '% -   100%'} </small></div>
                     </div>}
                     {dbSoglie && <div className='divMaxLegend'>
-                        <div className='divLegend' style={{ backgroundColor: dbSoglie[1].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
-                        <div className='divLegend' style={{ backgroundColor: dbSoglie[1].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
-                        <div className='divLegend' style={{ backgroundColor: dbSoglie[1].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%' }} ></div>
+                        <div className='divLegend' style={{ backgroundColor: dbSoglie[1].minColor, width: dbSoglie[1].minThresholds + '%' }}></div>
+                        <div className='divLegend' style={{ backgroundColor: dbSoglie[1].mediumColor, width: (dbSoglie[1].maxThresholds - 1) - (dbSoglie[1].minThresholds + 1) + '%' }}></div>
+                        <div className='divLegend' style={{ backgroundColor: dbSoglie[1].maxColor, width: (100 - dbSoglie[1].maxThresholds) + '%' }} ></div>
                     </div>}
                 </div>
             </Route>
@@ -51,13 +51,13 @@ export const LegendComponent = (props) => {
                 <div className='divLegendAll'>
                     {dbSoglie && <div className='divMaxLegend'>
                         <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].minColor }}><small>Zona basso rischio {'0% - ' + dbSoglie[2].minThresholds + '%'}</small></div>
-                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].mediumColor }}><small>Zona medio rischio {dbSoglie[2].minThresholds + 1 + '% - ' + dbSoglie[2].maxThresholds + '%'}</small></div>
-                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].maxColor }}><small>Zona alto rischio {dbSoglie[2].maxThresholds + 1 + '% -   100%'} </small></div>
+                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].mediumColor }}><small>Zona medio rischio {dbSoglie[2].minThresholds + 1 + '% - ' + (dbSoglie[2].maxThresholds - 1) + '%'}</small></div>
+                        <div className='divLegendSmall' style={{ borderColor: dbSoglie[2].maxColor }}><small>Zona alto rischio {dbSoglie[2].maxThresholds + '% -   100%'} </small></div>
                     </div>}
                     {dbSoglie && <div className='divMaxLegend'>
-                        <div className='divLegend' style={{ backgroundColor: dbSoglie[2].minColor, width: dbSoglie[0].minThresholds + '%' }}></div>
-                        <div className='divLegend' style={{ backgroundColor: dbSoglie[2].mediumColor, width: dbSoglie[0].maxThresholds - dbSoglie[0].minThresholds + '%' }}></div>
-                        <div className='divLegend' style={{ backgroundColor: dbSoglie[2].maxColor, width: (100 - dbSoglie[0].maxThresholds) + '%' }} ></div>
+                        <div className='divLegend' style={{ backgroundColor: dbSoglie[2].minColor, width: dbSoglie[2].minThresholds + '%' }}></div>
+                        <div className='divLegend' style={{ backgroundColor: dbSoglie[2].mediumColor, width: (dbSoglie[2].maxThresholds - 1) - (dbSoglie[2].minThresholds + 1) + '%' }}></div>
+                        <div className='divLegend' style={{ backgroundColor: dbSoglie[2].maxColor, width: (100 - dbSoglie[2].maxThresholds) + '%' }} ></div>
                     </div>}
                 </div>
             </Route>

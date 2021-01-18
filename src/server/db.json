@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Piemonte",
       "population": 4329008,
-      "positive": 1111111,
+      "positive": 1,
       "deaths": 1,
       "asymptomatic": 1,
       "stemmaSvg": "http://www.tecnichenormative.it/bandiere/regionali/piemonte.png",
@@ -225,27 +225,27 @@
   "soglie": [
     {
       "id": 1,
-      "minThresholds": 25,
-      "maxThresholds": 50,
-      "minColor": "#ffff00",
-      "mediumColor": "#ffae00",
+      "minThresholds": 56,
+      "maxThresholds": 65,
+      "minColor": "#ffffff",
+      "mediumColor": "#ae9898",
       "maxColor": "#ff0000"
     },
     {
       "id": 2,
-      "minThresholds": 25,
-      "maxThresholds": 50,
-      "minColor": "#d6d6d6",
-      "mediumColor": "#a3a3a3",
+      "minThresholds": 68,
+      "maxThresholds": 99,
+      "minColor": "#a75252",
+      "mediumColor": "#552a2a",
       "maxColor": "#000000"
     },
     {
       "id": 3,
-      "minThresholds": 25,
-      "maxThresholds": 50,
+      "minThresholds": 64,
+      "maxThresholds": 78,
       "minColor": "#00e1ff",
-      "mediumColor": "#0040ff",
-      "maxColor": "#0300a3"
+      "mediumColor": "#2e3b61",
+      "maxColor": "#ffffff"
     }
   ]
 }
