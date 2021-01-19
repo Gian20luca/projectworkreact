@@ -33,13 +33,19 @@ export function FormComponentInput(props) {
   }, []);
   //console.log(regione);
 
+  const handleChangeSelect = (event) => {
+    setReg((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+    setCollapseInput(prev => prev = event.target.value);
+  };
+
   const handleChange = (event) => {
     setReg((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
-    console.log(reg.positivi);
-    setCollapseInput(prev => prev = event.target.value);
   };
 
   const handleSubmitPositive = (event) => {
@@ -206,7 +212,7 @@ export function FormComponentInput(props) {
           <form className="form-group " onSubmit={handleSubmitPositive}>
 
             <label of="region">Seleziona una regione:</label>
-            <select style={{ border: '1px solid  #002080' }} name="id" className="form-control" value={reg.id} onChange={handleChange}>
+            <select style={{ border: '1px solid  #002080' }} name="id" className="form-control" value={reg.id} onChange={handleChangeSelect}>
               {reg.id === 0 && <option>-Regione-</option>}
               {regione
                 ? regione.map((item, num) => {

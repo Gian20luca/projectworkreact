@@ -31,9 +31,7 @@ export class Service {
             method: 'Patch',
             url: 'http://localhost:3001/regione/' + id,
             data: {
-                positive: parseInt(value),
-                data:(this.data.getDate()+"/"+(this.data.getMonth()+1)+"/"+this.data.getFullYear()+"  ora: "+this.data.getHours()+":"+this.data.getMinutes()),
-                motivazione:("Aggiornamento positivi: " + value)
+                positive: parseInt(value)
             }
         });
     }
@@ -42,9 +40,7 @@ export class Service {
             method: 'Patch',
             url: 'http://localhost:3001/regione/' + id,
             data: {
-                asymptomatic: parseInt(value),
-                data:(this.data.getDate()+"/"+(this.data.getMonth()+1)+"/"+this.data.getFullYear()+"  ora: "+this.data.getHours()+":"+this.data.getMinutes()),
-                motivazione:("Aggiornamento asintomatici: " + value)
+                asymptomatic: parseInt(value)
             }
         });
     }
@@ -53,9 +49,7 @@ export class Service {
             method: 'Patch',
             url: 'http://localhost:3001/regione/' + id,
             data: {
-                deaths: parseInt(value),
-                data:(this.data.getDate()+"/"+(this.data.getMonth()+1)+"/"+this.data.getFullYear()+"  ora: "+this.data.getHours()+":"+this.data.getMinutes()),
-                motivazione:("Aggiornamento decessi: " + value)
+                deaths: parseInt(value)
             }
         });
     }
@@ -70,9 +64,7 @@ export class Service {
                 maxThresholds: parseInt(max),
                 minColor: mincolor,
                 mediumColor: mediumcolor,
-                maxColor: maxcolor,
-                data:(this.data.getDate()+"/"+(this.data.getMonth()+1)+"/"+this.data.getFullYear()+"  ora: "+this.data.getHours()+":"+this.data.getMinutes()),
-                motivazione:("Aggiornamento soglie o colori: " )
+                maxColor: maxcolor
             }
         });
     }
