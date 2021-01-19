@@ -1,5 +1,7 @@
 .myNavbar {
-  background-color: #2d3246;
+  background-color:  #002080;
+  display: flex;
+  justify-content: center;
 }
 .immagine{
     margin-right: 15px;

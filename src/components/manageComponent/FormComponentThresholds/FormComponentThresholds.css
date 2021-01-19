@@ -13,23 +13,28 @@ ul {
 .linkThresholds {
   position: relative;
   text-decoration: none;
-  color: #017cff;
-  font-size: 18px;
+  color:  #0033cc;
+  font-size: 21px;
   cursor: pointer;
 }
 .linkThresholds:after {
   display: block;
   content: "";
-  border-bottom: solid 2px #0057b3;
+  border-bottom: solid 2px  #0033cc;
   transform: scaleX(0);
   transition: transform 250ms ease-in-out;
 }
 .linkThresholds:hover {
   font-weight: bold;
-  color: #0057b3;
+  color:  #0033cc;
 }
 .linkThresholds:hover:after {
   transform: scaleX(1);
+}
+
+.linkThresholdsSelected{
+  font-size: 28px;
+  font-weight: bold;
 }
 .myBtn {
   color: white;

@@ -3,18 +3,10 @@ import { Link } from "react-router-dom";
 import "./NavbarComponent.css";
 export function NavbarComponent() {
   return (
-    <nav className="navbar myNavbar fixed-top navbar-expand-lg navbar-dark">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/8/82/SARS-CoV-2_without_background.png"
-            width="47"
-            height="45"
-            className="d-inline-block align-top immagine"
-          ></img>
-          Covid-19 Console
-        </Link>
-        <button
+    <div>
+    <nav className="navbar myNavbar fixed-top navbar-dark ">
+      <div className="container-fluid justify-content-beetwen">
+      <button
           className="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -25,23 +17,41 @@ export function NavbarComponent() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div className="navbar-nav ">
-            <Link className="linkNav nav-item nav-link " to="/">
-              Home
-            </Link>
-            <Link className="linkNav  nav-item nav-link" to="/ManageInput">
-              Manage Input
-            </Link>
-            <Link className="linkNav  nav-item nav-link" to="/ManageThresholds">
-              Manage Thresholds
-            </Link>
-          </div>
+        <Link className="navbar-brand" to="/" style={{marginLeft: '-70px'}}>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/8/82/SARS-CoV-2_without_background.png"
+            width="47"
+            height="45"
+            className="d-inline-block align-top immagine"
+          ></img>
+          Covid-19 Console
+        </Link>
+        <div
+        >
         </div>
       </div>
     </nav>
+    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div className="navbar-nav ">
+      <Link className="linkNav nav-item nav-link " to="/">
+        Home
+      </Link>
+      <Link className="linkNav  nav-item nav-link" to="/ManageInput">
+        Manage Input
+      </Link>
+      <Link className="linkNav  nav-item nav-link" to="/ManageThresholds">
+        Manage Thresholds
+      </Link>
+    </div>
+  </div>
+  </div>
+
+
   );
-}
+} 
+
+
+
 
 
 
@@ -110,6 +120,6 @@ export function NavbarComponent() {
 </nav> */
 
 
-    
+
 //   );
 // }

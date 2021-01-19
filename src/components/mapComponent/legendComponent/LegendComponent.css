@@ -1,8 +1,8 @@
 .divLegendAll {
   padding: 30px 15px 15px 15px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 2px solid #002080;
   border-radius: 25px;
-  background-color: rgba(240, 240, 240, 0.5);
+  background-color: rgba(240, 240, 240, 0.3);
 }
 
 .divLegend {

@@ -2,13 +2,15 @@
   height: 500px;
   border-radius: 25px;
   margin-bottom: 75px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 5px solid #002080;
 }
 .ulMap {
   list-style-type: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 25px;
+  margin-bottom: 25px ;
 }
 
 .linkMap {
@@ -19,23 +21,28 @@
 .linkMap {
   position: relative;
   text-decoration: none;
-  color: #017cff;
-  font-size: 18px;
+  color:  #0033cc;
+  font-size: 23px;
   cursor: pointer;
 }
 .linkMap:after {
   display: block;
   content: "";
-  border-bottom: solid 2px #000000;
+  border-bottom: solid 2px  #0033cc;
   transform: scaleX(0);
   transition: transform 250ms ease-in-out;
 }
 .linkMap:hover {
   font-weight: bold;
-  color: black;
+  color:  #0033cc;
 }
 .linkMap:hover:after {
   transform: scaleX(1);
+}
+
+.linkMapSelected{
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .margineSuperiore {

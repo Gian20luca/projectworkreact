@@ -5,7 +5,7 @@ export function FooterComponent() {
 
     <footer
       className="section footer-classNameic context-dark bg-image"
-      style={{background: "#2d3246"}}
+      style={{background: " #002699"}}
     >
       <div className="container-fluid">
         <div className="row row-30">

@@ -36,7 +36,7 @@ export function FormComponentThresholds(props) {
   let { history } = props;
   /*-------------------------------------------------------------------------------------- */
   useEffect(() => {
-    
+
     let call = new Service.getInstance();
 
     call.getGeojsonANDMyDb().then(
@@ -99,7 +99,7 @@ export function FormComponentThresholds(props) {
       ...prev,
       decessi: {
         ...prev.decessi,
-       [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value) : event.target.value,
+        [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value) : event.target.value,
       }
     }));
   };
@@ -119,7 +119,7 @@ export function FormComponentThresholds(props) {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        
+
         postData(
           regcolor.positivi.minperc,
           regcolor.positivi.maxperc,
@@ -137,10 +137,10 @@ export function FormComponentThresholds(props) {
           hideClass: {
             popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
           },
-      },
-      () => {
-        return <Redirect to="/" />
-      })
+        },
+          () => {
+
+          })
       } else if (result.isDenied) {
         Swal.fire({
           icon: 'error',
@@ -151,61 +151,61 @@ export function FormComponentThresholds(props) {
           hideClass: {
             popup: 'animate_ animate__animated animate__hinge'
           },
-      })
+        })
       }
     })
   };
 
   const handleSubmitDeaths = (event) => {
     event.preventDefault();
-  Swal.fire({
-    title: 'Vuoi davvero aggiornare questi dati?',
-    showDenyButton: true,
-    showCancelButton: false,
-    confirmButtonText: `Salva`,
-    denyButtonText: `Annulla`,
-    showClass: {
-      popup: 'animate_ animate__animated animate__zoomIn'
-    }
-  }).then((result) => {
-    if (result.isConfirmed) {
-      postData(regcolor.decessi.minperc,
-        regcolor.decessi.maxperc,
-        regcolor.decessi.maxColor,
-        regcolor.decessi.minColor,
-        regcolor.decessi.mediumColor,
-        2, 'decessi');
-      Swal.fire({
-        icon: 'success',
-        title: 'Salvataggio avvenuto con successo',
-        confirmButtonText: 'Vai alla pagina principale',
-        showClass: {
-          popup: 'animate_ animate__animated animate__zoomIn'
+    Swal.fire({
+      title: 'Vuoi davvero aggiornare questi dati?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: `Salva`,
+      denyButtonText: `Annulla`,
+      showClass: {
+        popup: 'animate_ animate__animated animate__zoomIn'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        postData(regcolor.decessi.minperc,
+          regcolor.decessi.maxperc,
+          regcolor.decessi.maxColor,
+          regcolor.decessi.minColor,
+          regcolor.decessi.mediumColor,
+          2, 'decessi');
+        Swal.fire({
+          icon: 'success',
+          title: 'Salvataggio avvenuto con successo',
+          confirmButtonText: 'Vai alla pagina principale',
+          showClass: {
+            popup: 'animate_ animate__animated animate__zoomIn'
+          },
+          hideClass: {
+            popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
+          },
         },
-        hideClass: {
-          popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
-        },
-    },
-    () => {
-      return history.push('/mapDeaths');
+          () => {
+            return history.push('/mapDeaths');
+          })
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: 'error',
+          title: 'I dati non sono stati aggiornati',
+          showClass: {
+            popup: 'animate_ animate__animated animate__jackInTheBox'
+          },
+          hideClass: {
+            popup: 'animate_ animate__animated animate__hinge'
+          },
+        })
+      }
     })
-    } else if (result.isDenied) {
-      Swal.fire({
-        icon: 'error',
-        title: 'I dati non sono stati aggiornati',
-        showClass: {
-          popup: 'animate_ animate__animated animate__jackInTheBox'
-        },
-        hideClass: {
-          popup: 'animate_ animate__animated animate__hinge'
-        },
-    })
-    }
-  })
-};
+  };
 
   const handleSubmitAsnto = (event) => {
-      event.preventDefault();
+    event.preventDefault();
     Swal.fire({
       title: 'Vuoi davvero aggiornare questi dati?',
       showDenyButton: true,
@@ -233,10 +233,10 @@ export function FormComponentThresholds(props) {
           hideClass: {
             popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
           },
-      },
-      () => {
-        return <Redirect to="/mapAsymptomatic" />
-      })
+        },
+          () => {
+            return <Redirect to="/mapAsymptomatic" />
+          })
       } else if (result.isDenied) {
         Swal.fire({
           icon: 'error',
@@ -247,12 +247,12 @@ export function FormComponentThresholds(props) {
           hideClass: {
             popup: 'animate_ animate__animated animate__hinge'
           },
-      })
+        })
       }
     })
   };
 
-  
+
 
   const postData = (minperc, maxperc, maxC, minC, mediumC, id, tipe) => {
     switch (tipe) {
@@ -272,34 +272,30 @@ export function FormComponentThresholds(props) {
   return (
     <HashRouter>
       <div className="container margineSuperiore animate_ animate_animated animate_bounceInDown">
-        <div className="row">
-          <div className="col-md-12">
-            <ul>
-              <li>
-                <Link className="nav-link linkThresholds" to="/">
-                  Positivi
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-link linkThresholds" to="/Deaths">
-                  Decessi
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-link linkThresholds" to="/Asymptomatic">
-                  Asintomatici
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
 
         {/* positivi */}
         <Route exact path="/">
+          <ul>
+            <li>
+              <Link className="nav-link linkThresholds linkThresholdsSelected" to="/">
+                Positivi
+                </Link>
+            </li>
+            <li>
+              <Link className="nav-link linkThresholds" to="/Deaths">
+                Decessi
+                </Link>
+            </li>
+            <li>
+              <Link className="nav-link linkThresholds" to="/Asymptomatic">
+                Asintomatici
+                </Link>
+            </li>
+          </ul>
           <div className="divInput offset-md-1 col-md-10 offset-md-1 animate_ animate_animated animate_bounceInDown">
-            <h3>Positivi</h3>
             <form
               className="card card-body mt-3"
+              style={{ border: '3px solid  #002080' }}
               onSubmit={handleSubmitPositive}
             >
               <label>Soglia inferiore:</label>
@@ -366,11 +362,11 @@ export function FormComponentThresholds(props) {
                   ></input>
                   {(regcolor.positivi.minColor === regcolor.positivi.maxColor ||
                     regcolor.positivi.minColor ===
-                      regcolor.positivi.mediumColor) && (
-                    <small className="form-text text-danger">
-                      Inserire colore diverso.{" "}
-                    </small>
-                  )}
+                    regcolor.positivi.mediumColor) && (
+                      <small className="form-text text-danger">
+                        Inserire colore diverso.{" "}
+                      </small>
+                    )}
                   <br></br>
                 </div>
               </div>
@@ -382,7 +378,7 @@ export function FormComponentThresholds(props) {
                   <div className="input-group mb-3">
                     <input
                       type="number"
-                      placeholder={parseInt(regcolor.positivi.minperc)+1}
+                      placeholder={parseInt(regcolor.positivi.minperc) + 1}
                       className="form-control"
                       disabled
                     ></input>
@@ -396,7 +392,7 @@ export function FormComponentThresholds(props) {
                   <div className="input-group mb-3">
                     <input
                       type="number"
-                      placeholder={parseInt(regcolor.positivi.maxperc)-1}
+                      placeholder={parseInt(regcolor.positivi.maxperc) - 1}
                       className="form-control"
                       disabled
                     ></input>
@@ -404,21 +400,21 @@ export function FormComponentThresholds(props) {
                       <span className="input-group-text">%</span>
                     </div>
                   </div>
-                  { regcolor.positivi.maxperc - 1 ==
-                    regcolor.positivi.minperc + 1 &&(
+                  {regcolor.positivi.maxperc - 1 ==
+                    regcolor.positivi.minperc + 1 && (
+                      <small className="form-text text-danger">
+                        {" "}
+                      Soglia media errata. Inserire soglia superiore maggiore.
+                      </small>
+                    )}
+
+                  {regcolor.positivi.minperc + 1 > regcolor.positivi.maxperc - 1 && (
                     <small className="form-text text-danger">
                       {" "}
                       Soglia media errata. Inserire soglia superiore maggiore.
                     </small>
                   )}
 
-                  {  regcolor.positivi.minperc+1 > regcolor.positivi.maxperc-1 &&(
-                    <small className="form-text text-danger">
-                      {" "}
-                      Soglia media errata. Inserire soglia superiore maggiore.
-                    </small>
-                  )}
-                 
                 </div>
 
                 <div className="col-md-6">
@@ -434,11 +430,11 @@ export function FormComponentThresholds(props) {
                   {(regcolor.positivi.mediumColor ===
                     regcolor.positivi.maxColor ||
                     regcolor.positivi.minColor ===
-                      regcolor.positivi.mediumColor) && (
-                    <small className="form-text text-danger">
-                      Inserire colore diverso.{" "}
-                    </small>
-                  )}
+                    regcolor.positivi.mediumColor) && (
+                      <small className="form-text text-danger">
+                        Inserire colore diverso.{" "}
+                      </small>
+                    )}
                   <br></br>
                 </div>
               </div>
@@ -501,18 +497,18 @@ export function FormComponentThresholds(props) {
                   ></input>
                   {(regcolor.positivi.minColor === regcolor.positivi.maxColor ||
                     regcolor.positivi.maxColor ===
-                      regcolor.positivi.mediumColor) && (
-                    <small className="form-text text-danger">
-                      Inserire colore diverso.{" "}
-                    </small>
-                  )}
+                    regcolor.positivi.mediumColor) && (
+                      <small className="form-text text-danger">
+                        Inserire colore diverso.{" "}
+                      </small>
+                    )}
                   <br></br>
                 </div>
               </div>
               <br></br>
 
               <div className="row justify-content-center">
-                <div className=" col-md-10 ">
+                <div className=" col-md-5 ">
                   <input
                     type="submit"
                     className="btn myBtn btn-block"
@@ -523,15 +519,15 @@ export function FormComponentThresholds(props) {
                       regcolor.positivi.maxperc <= regcolor.positivi.minperc ||
                       regcolor.positivi.maxperc > 99 ||
                       regcolor.positivi.minColor ===
-                        regcolor.positivi.maxColor ||
+                      regcolor.positivi.maxColor ||
                       regcolor.positivi.minColor ===
-                        regcolor.positivi.mediumColor ||
+                      regcolor.positivi.mediumColor ||
                       regcolor.positivi.mediumColor ===
-                        regcolor.positivi.maxColor ||
+                      regcolor.positivi.maxColor ||
                       regcolor.positivi.maxperc - 1 ==
-                        regcolor.positivi.minperc + 1 ||
+                      regcolor.positivi.minperc + 1 ||
                       regcolor.positivi.maxperc - 1 <
-                        regcolor.positivi.minperc + 1
+                      regcolor.positivi.minperc + 1
                     }
                   ></input>
                 </div>
@@ -542,9 +538,26 @@ export function FormComponentThresholds(props) {
 
         {/* -----------------------------decessi -------------------------------------*/}
         <Route exact path="/Deaths">
+        <ul>
+            <li>
+              <Link className="nav-link linkThresholds " to="/">
+                Positivi
+                </Link>
+            </li>
+            <li>
+              <Link className="nav-link linkThresholds linkThresholdsSelected" to="/Deaths">
+                Decessi
+                </Link>
+            </li>
+            <li>
+              <Link className="nav-link linkThresholds" to="/Asymptomatic">
+                Asintomatici
+                </Link>
+            </li>
+          </ul>
           <div className="divInput offset-md-1 col-md-10 offset-md-1 animate_ animate_animated animate_bounceInDown">
-            <h3>Decessi</h3>
-            <form className="card card-body mt-3" onSubmit={handleSubmitDeaths}>
+            <form className="card card-body mt-3" style={{ border: '3px solid  #002080' }}
+              onSubmit={handleSubmitDeaths}>
               <label>Soglia inferiore:</label>
               <div className="row">
                 <div className="col-md-3">
@@ -607,11 +620,11 @@ export function FormComponentThresholds(props) {
                   ></input>
                   {(regcolor.decessi.minColor === regcolor.decessi.maxColor ||
                     regcolor.decessi.minColor ===
-                      regcolor.decessi.mediumColor) && (
-                    <small className="form-text text-danger">
-                      Inserire colore diverso.{" "}
-                    </small>
-                  )}
+                    regcolor.decessi.mediumColor) && (
+                      <small className="form-text text-danger">
+                        Inserire colore diverso.{" "}
+                      </small>
+                    )}
                   <br></br>
                 </div>
               </div>
@@ -645,16 +658,16 @@ export function FormComponentThresholds(props) {
                       <span className="input-group-text">%</span>
                     </div>
                   </div>
-                  
-                  { regcolor.decessi.maxperc - 1 ==
-                    regcolor.decessi.minperc + 1 &&(
-                    <small className="form-text text-danger">
-                      {" "}
-                      Soglia media errata. Inserire soglia superiore maggiore.
-                    </small>
-                  )}
 
-                  {  regcolor.decessi.minperc+1 > regcolor.decessi.maxperc-1 &&(
+                  {regcolor.decessi.maxperc - 1 ==
+                    regcolor.decessi.minperc + 1 && (
+                      <small className="form-text text-danger">
+                        {" "}
+                      Soglia media errata. Inserire soglia superiore maggiore.
+                      </small>
+                    )}
+
+                  {regcolor.decessi.minperc + 1 > regcolor.decessi.maxperc - 1 && (
                     <small className="form-text text-danger">
                       {" "}
                       Soglia media errata. Inserire soglia superiore maggiore.
@@ -674,11 +687,11 @@ export function FormComponentThresholds(props) {
                   {(regcolor.decessi.mediumColor ===
                     regcolor.decessi.maxColor ||
                     regcolor.decessi.minColor ===
-                      regcolor.decessi.mediumColor) && (
-                    <small className="form-text text-danger">
-                      Inserire colore diverso.{" "}
-                    </small>
-                  )}
+                    regcolor.decessi.mediumColor) && (
+                      <small className="form-text text-danger">
+                        Inserire colore diverso.{" "}
+                      </small>
+                    )}
                   <br></br>
                 </div>
               </div>
@@ -739,18 +752,18 @@ export function FormComponentThresholds(props) {
                   ></input>
                   {(regcolor.decessi.minColor === regcolor.decessi.maxColor ||
                     regcolor.decessi.maxColor ===
-                      regcolor.decessi.mediumColor) && (
-                    <small className="form-text text-danger">
-                      Inserire colore diverso.{" "}
-                    </small>
-                  )}
+                    regcolor.decessi.mediumColor) && (
+                      <small className="form-text text-danger">
+                        Inserire colore diverso.{" "}
+                      </small>
+                    )}
                   <br></br>
                 </div>
               </div>
               <br></br>
 
               <div className="row justify-content-center">
-                <div className=" col-md-10 ">
+                <div className=" col-md-5 ">
                   <input
                     type="submit"
                     className="btn myBtn btn-block"
@@ -762,13 +775,13 @@ export function FormComponentThresholds(props) {
                       regcolor.decessi.maxperc > 99 ||
                       regcolor.decessi.minColor === regcolor.decessi.maxColor ||
                       regcolor.decessi.minColor ===
-                        regcolor.decessi.mediumColor ||
+                      regcolor.decessi.mediumColor ||
                       regcolor.decessi.mediumColor ===
-                        regcolor.decessi.maxColor ||
+                      regcolor.decessi.maxColor ||
                       regcolor.decessi.maxperc - 1 ==
-                        regcolor.decessi.minperc + 1 ||
+                      regcolor.decessi.minperc + 1 ||
                       regcolor.decessi.maxperc - 1 <
-                        regcolor.decessi.minperc + 1
+                      regcolor.decessi.minperc + 1
                     }
                   ></input>
                 </div>
@@ -779,9 +792,25 @@ export function FormComponentThresholds(props) {
 
         {/* asintomatici */}
         <Route exact path="/Asymptomatic">
+        <ul>
+            <li>
+              <Link className="nav-link linkThresholds " to="/">
+                Positivi
+                </Link>
+            </li>
+            <li>
+              <Link className="nav-link linkThresholds " to="/Deaths">
+                Decessi
+                </Link>
+            </li>
+            <li>
+              <Link className="nav-link linkThresholds linkThresholdsSelected" to="/Asymptomatic">
+                Asintomatici
+                </Link>
+            </li>
+          </ul>
           <div className="divInput offset-md-1 col-md-10 offset-md-1 animate_ animate_animated animate_bounceInDown">
-            <h3>Decessi</h3>
-            <form className="card card-body mt-3" onSubmit={handleSubmitAsnto}>
+            <form className="card card-body mt-3" style={{ border: '3px solid  #002080' }} onSubmit={handleSubmitAsnto}>
               <label>Soglia inferiore:</label>
               <div className="row">
                 <div className="col-md-3">
@@ -846,11 +875,11 @@ export function FormComponentThresholds(props) {
                   {(regcolor.asintomatici.minColor ===
                     regcolor.asintomatici.maxColor ||
                     regcolor.asintomatici.minColor ===
-                      regcolor.asintomatici.mediumColor) && (
-                    <small className="form-text text-danger">
-                      Inserire colore diverso.{" "}
-                    </small>
-                  )}
+                    regcolor.asintomatici.mediumColor) && (
+                      <small className="form-text text-danger">
+                        Inserire colore diverso.{" "}
+                      </small>
+                    )}
                   <br></br>
                 </div>
               </div>
@@ -884,15 +913,15 @@ export function FormComponentThresholds(props) {
                       <span className="input-group-text">%</span>
                     </div>
                   </div>
-                  { regcolor.asintomatici.maxperc - 1 ==
-                    regcolor.asintomatici.minperc + 1 &&(
-                    <small className="form-text text-danger">
-                      {" "}
+                  {regcolor.asintomatici.maxperc - 1 ==
+                    regcolor.asintomatici.minperc + 1 && (
+                      <small className="form-text text-danger">
+                        {" "}
                       Soglia media errata. Inserire soglia superiore maggiore.
-                    </small>
-                  )}
+                      </small>
+                    )}
 
-                  {  regcolor.asintomatici.minperc+1 > regcolor.asintomatici.maxperc-1 &&(
+                  {regcolor.asintomatici.minperc + 1 > regcolor.asintomatici.maxperc - 1 && (
                     <small className="form-text text-danger">
                       {" "}
                       Soglia media errata. Inserire soglia superiore maggiore.
@@ -912,11 +941,11 @@ export function FormComponentThresholds(props) {
                   {(regcolor.asintomatici.mediumColor ===
                     regcolor.asintomatici.maxColor ||
                     regcolor.asintomatici.minColor ===
-                      regcolor.asintomatici.mediumColor) && (
-                    <small className="form-text text-danger">
-                      Inserire colore diverso.{" "}
-                    </small>
-                  )}
+                    regcolor.asintomatici.mediumColor) && (
+                      <small className="form-text text-danger">
+                        Inserire colore diverso.{" "}
+                      </small>
+                    )}
                   <br></br>
                 </div>
               </div>
@@ -941,11 +970,11 @@ export function FormComponentThresholds(props) {
                   </div>
                   {regcolor.asintomatici.maxperc <=
                     regcolor.asintomatici.minperc && (
-                    <small className="form-text text-danger">
-                      {" "}
+                      <small className="form-text text-danger">
+                        {" "}
                       Inserire soglia maggiore della soglia inferiore.
-                    </small>
-                  )}
+                      </small>
+                    )}
                   {regcolor.asintomatici.maxperc > 99 && (
                     <small className="form-text text-danger">
                       La soglia superiore non può superare il 99%.
@@ -979,18 +1008,18 @@ export function FormComponentThresholds(props) {
                   {(regcolor.asintomatici.minColor ===
                     regcolor.asintomatici.maxColor ||
                     regcolor.asintomatici.maxColor ===
-                      regcolor.asintomatici.mediumColor) && (
-                    <small className="form-text text-danger">
-                      Inserire colore diverso.{" "}
-                    </small>
-                  )}
+                    regcolor.asintomatici.mediumColor) && (
+                      <small className="form-text text-danger">
+                        Inserire colore diverso.{" "}
+                      </small>
+                    )}
                   <br></br>
                 </div>
               </div>
               <br></br>
 
               <div className="row justify-content-center">
-                <div className=" col-md-10 ">
+                <div className=" col-md-5 ">
                   <input
                     type="submit"
                     className="btn myBtn btn-block"
@@ -998,20 +1027,20 @@ export function FormComponentThresholds(props) {
                       regcolor.asintomatici.minperc < 1 ||
                       regcolor.asintomatici.minperc > 97 ||
                       regcolor.asintomatici.minperc >=
-                        regcolor.asintomatici.maxperc ||
+                      regcolor.asintomatici.maxperc ||
                       regcolor.asintomatici.maxperc <=
-                        regcolor.asintomatici.minperc ||
+                      regcolor.asintomatici.minperc ||
                       regcolor.asintomatici.maxperc > 99 ||
                       regcolor.asintomatici.minColor ===
-                        regcolor.asintomatici.maxColor ||
+                      regcolor.asintomatici.maxColor ||
                       regcolor.asintomatici.minColor ===
-                        regcolor.asintomatici.mediumColor ||
+                      regcolor.asintomatici.mediumColor ||
                       regcolor.asintomatici.mediumColor ===
-                        regcolor.asintomatici.maxColor ||
+                      regcolor.asintomatici.maxColor ||
                       regcolor.asintomatici.maxperc - 1 ==
-                        regcolor.asintomatici.minperc + 1 ||
+                      regcolor.asintomatici.minperc + 1 ||
                       regcolor.asintomatici.maxperc - 1 <
-                        regcolor.asintomatici.minperc + 1
+                      regcolor.asintomatici.minperc + 1
                     }
                   ></input>
                 </div>

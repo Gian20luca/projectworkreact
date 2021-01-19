@@ -200,16 +200,15 @@ export function MapComponent(props) {
         <div className="col-md-12">
           <HashRouter>
 
+            
+
+            <Route exact path="/">
             <ul className="ulMap">
-              <li><Link className="nav-link linkMap" to="/">Positivi</Link></li>
+              <li><Link className="nav-link linkMap linkMapSelected" to="/">Positivi</Link></li>
               <li><Link className="nav-link linkMap" to="/mapDeaths">Decessi</Link></li>
               <li><Link className="nav-link linkMap" to="/mapAsymptomatic">Asintomatici</Link></li>
             </ul>
-
-            <Route exact path="/">
               <div className="animate_ animate__animated animate__fadeIn">
-                <h3>Positivi in Italia</h3>
-                <br></br>
                 <MapContainer id='map' center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
                   <TileLayer
                     attribution='Progetto di: Bellafronte, Caliandro, Verdesca, Colitta &nbsp&nbsp&nbsp'
@@ -225,9 +224,12 @@ export function MapComponent(props) {
             </Route>
 
             <Route exact path="/mapDeaths">
+            <ul className="ulMap">
+              <li><Link className="nav-link linkMap" to="/">Positivi</Link></li>
+              <li><Link className="nav-link linkMap linkMapSelected" to="/mapDeaths">Decessi</Link></li>
+              <li><Link className="nav-link linkMap" to="/mapAsymptomatic">Asintomatici</Link></li>
+            </ul>
               <div className="animate_ animate__animated animate__fadeIn">
-                <h3>Decessi in Italia</h3>
-                <br></br>
                 <MapContainer center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
                   <TileLayer
                     attribution='Progetto di: Bellafronte, Caliandro, Verdesca, Colitta &nbsp&nbsp&nbsp'
@@ -243,9 +245,12 @@ export function MapComponent(props) {
             </Route>
 
             <Route exact path="/mapAsymptomatic">
+            <ul className="ulMap">
+              <li><Link className="nav-link linkMap" to="/">Positivi</Link></li>
+              <li><Link className="nav-link linkMap" to="/mapDeaths">Decessi</Link></li>
+              <li><Link className="nav-link linkMap linkMapSelected" to="/mapAsymptomatic">Asintomatici</Link></li>
+            </ul>
               <div className="animate_ animate__animated animate__fadeIn">
-                <h3>Asintomatici in Italia</h3>
-                <br></br>
                 <MapContainer center={position} zoom={5} minZoom={5} maxZoom={5.5} dragging={false}>
                   <TileLayer
                     attribution='Progetto di: Bellafronte, Caliandro, Verdesca, Colitta &nbsp&nbsp&nbsp'
