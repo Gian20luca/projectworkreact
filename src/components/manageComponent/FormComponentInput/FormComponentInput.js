@@ -3,9 +3,11 @@ import './FormComponentInput.css';
 import { Service } from "../../../service/Service";
 import axios from "axios";
 import Swal from 'sweetalert2';
-import {ScrollInputDataComponent} from './scrollInputDataComponent/ScrollInputDataComponent';
+import { ScrollInputDataComponent } from './scrollInputDataComponent/ScrollInputDataComponent';
+import { useHistory } from 'react-router-dom'
 
 export function FormComponentInput(props) {
+  let _history = useHistory();
   const [collapseInput, setCollapseInput] = useState();
   const [regione, setRegione] = useState([]);
   const [reg, setReg] = useState({
@@ -57,18 +59,20 @@ export function FormComponentInput(props) {
         Swal.fire({
           icon: 'success',
           title: 'Salvataggio avvenuto con successo',
-          confirmButtonText: 'Vai alla pagina principale',
+          confirmButtonText: 'Home',
+          showDenyButton: true,
+          denyButtonText: `Annulla`,
           showClass: {
             popup: 'animate_ animate__animated animate__zoomIn'
           },
           hideClass: {
             popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
           },
-        },
-          () => {
-            return <Redirect to="/mapDeaths" />
-          })
-      } else if (result.isDenied) {
+        }).then((result) => {
+          result.isConfirmed ? setTimeout(() => { _history.push('/') }, 900) : setTimeout(() => { _history.push('/ManageInput') }, 900)
+        })
+      }
+      else if (result.isDenied) {
         Swal.fire({
           icon: 'error',
           title: 'I dati non sono stati aggiornati',
@@ -100,18 +104,20 @@ export function FormComponentInput(props) {
         Swal.fire({
           icon: 'success',
           title: 'Salvataggio avvenuto con successo',
-          confirmButtonText: 'Vai alla pagina principale',
+          confirmButtonText: 'Home',
+          showDenyButton: true,
+          denyButtonText: `Annulla`,
           showClass: {
             popup: 'animate_ animate__animated animate__zoomIn'
           },
           hideClass: {
             popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
           },
-        },
-          () => {
-            return <Redirect to="/mapDeaths" />
-          })
-      } else if (result.isDenied) {
+        }).then((result) => {
+          result.isConfirmed ? setTimeout(() => { _history.push('../#/mapDeaths') }, 900) : setTimeout(() => { _history.push('/ManageInput') }, 900)
+        })
+      }
+      else if (result.isDenied) {
         Swal.fire({
           icon: 'error',
           title: 'I dati non sono stati aggiornati',
@@ -143,18 +149,20 @@ export function FormComponentInput(props) {
         Swal.fire({
           icon: 'success',
           title: 'Salvataggio avvenuto con successo',
-          confirmButtonText: 'Vai alla pagina principale',
+          confirmButtonText: 'Home',
+          showDenyButton: true,
+          denyButtonText: `Annulla`,
           showClass: {
             popup: 'animate_ animate__animated animate__zoomIn'
           },
           hideClass: {
             popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
           },
-        },
-          () => {
-            return <Redirect to="/mapDeaths" />
-          })
-      } else if (result.isDenied) {
+        }).then((result) => {
+          result.isConfirmed ? setTimeout(() => { _history.push('../#/mapAsymptomatic') }, 900) : setTimeout(() => { _history.push('/ManageInput') }, 900)
+        })
+      }
+      else if (result.isDenied) {
         Swal.fire({
           icon: 'error',
           title: 'I dati non sono stati aggiornati',
@@ -190,7 +198,7 @@ export function FormComponentInput(props) {
     <div className="container divFormInput margineSuperiore animate_ animate__animated animate__bounceInDown">
       <div className="row">
         <div className='col-md-4 overflow-auto card card-body' style={{ height: '69vh', marginTop: '80px', padding: '17px', marginRight: '70px', border: '3px solid  #002080' }}>
-          <ScrollInputDataComponent collapseInput={collapseInput}/>
+          <ScrollInputDataComponent collapseInput={collapseInput} />
         </div>
         <div className="col-md-7 card card-body" style={{ marginTop: '70px', border: '3px solid  #002080' }}>
 
@@ -198,7 +206,7 @@ export function FormComponentInput(props) {
           <form className="form-group " onSubmit={handleSubmitPositive}>
 
             <label of="region">Seleziona una regione:</label>
-            <select style={{ border: '1px solid  #002080'}} name="id" className="form-control" value={reg.id} onChange={handleChange}>
+            <select style={{ border: '1px solid  #002080' }} name="id" className="form-control" value={reg.id} onChange={handleChange}>
               {reg.id === 0 && <option>-Regione-</option>}
               {regione
                 ? regione.map((item, num) => {

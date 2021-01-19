@@ -4,7 +4,7 @@ import { FormComponentThresholds } from "./FormComponentThresholds/FormComponent
 export function ManageComponentThresholds() {
   return (
     <div>
-      <FormComponentThresholds/>
+      <FormComponentThresholds className='animate_ animate_animated animate_bounceInDown'/>
     </div>
   );
 }

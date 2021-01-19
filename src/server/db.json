@@ -4,9 +4,9 @@
       "id": 1,
       "name": "Piemonte",
       "population": 4329008,
-      "positive": 11111,
-      "deaths": 2244333,
-      "asymptomatic": 2122321,
+      "positive": 2432423,
+      "deaths": 242,
+      "asymptomatic": 35,
       "stemmaSvg": "http://www.tecnichenormative.it/bandiere/regionali/piemonte.png",
       "uslRegione": "http://www.salute.gov.it/portale/temi/p2_6_11.jsp?lingua=italiano&area=statisticheSSN&menu=vuoto&regione=010",
       "sitoRegione": "https://www.regione.piemonte.it/web/"
@@ -28,7 +28,7 @@
       "population": 10060965,
       "positive": 5378242,
       "deaths": 5093456,
-      "asymptomatic": 6099123,
+      "asymptomatic": 5378241,
       "stemmaSvg": "http://www.consultacultura.it/images/regioni/stemma-regione-lombardia.png",
       "uslRegione": "http://www.salute.gov.it/portale/temi/p2_6_11.jsp?lingua=italiano&area=statisticheSSN&menu=vuoto&regione=030",
       "sitoRegione": "https://www.regione.lombardia.it/wps/portal/istituzionale"

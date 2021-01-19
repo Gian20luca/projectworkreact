@@ -3,10 +3,11 @@ import './FormComponentThresholds.css';
 import { Service } from "../../../service/Service";
 import axios from 'axios';
 import { Route } from "react-router";
-import { HashRouter, Link, Redirect } from "react-router-dom";
+import { HashRouter, Link, useHistory } from "react-router-dom";
 import Swal from 'sweetalert2';
 
 export function FormComponentThresholds(props) {
+  let _history = useHistory();
   const [regcolor, setRegcolor] = useState({
 
     positivi: {
@@ -130,18 +131,20 @@ export function FormComponentThresholds(props) {
         Swal.fire({
           icon: 'success',
           title: 'Salvataggio avvenuto con successo',
-          confirmButtonText: 'Vai alla pagina principale',
+          confirmButtonText: 'Home',
+          showDenyButton: true,
+          denyButtonText: `Annulla`,
           showClass: {
             popup: 'animate_ animate__animated animate__zoomIn'
           },
           hideClass: {
             popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
           },
-        },
-          () => {
-
-          })
-      } else if (result.isDenied) {
+        }).then((result) => {
+          result.isConfirmed ? setTimeout(() => { _history.push('/') }, 900) : setTimeout(() => { _history.push('/ManageThresholds#/') }, 900)
+        })
+      }
+      else if (result.isDenied) {
         Swal.fire({
           icon: 'error',
           title: 'I dati non sono stati aggiornati',
@@ -178,18 +181,20 @@ export function FormComponentThresholds(props) {
         Swal.fire({
           icon: 'success',
           title: 'Salvataggio avvenuto con successo',
-          confirmButtonText: 'Vai alla pagina principale',
+          confirmButtonText: 'Home',
+          showDenyButton: true,
+          denyButtonText: `Annulla`,
           showClass: {
             popup: 'animate_ animate__animated animate__zoomIn'
           },
           hideClass: {
             popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
           },
-        },
-          () => {
-            return history.push('/mapDeaths');
-          })
-      } else if (result.isDenied) {
+        }).then((result) => {
+          result.isConfirmed ? setTimeout(() => { _history.push('../#/mapDeaths') }, 900) : setTimeout(() => { _history.push('/ManageThresholds#/Deaths') }, 900)
+        })
+      }
+      else if (result.isDenied) {
         Swal.fire({
           icon: 'error',
           title: 'I dati non sono stati aggiornati',
@@ -226,18 +231,20 @@ export function FormComponentThresholds(props) {
         Swal.fire({
           icon: 'success',
           title: 'Salvataggio avvenuto con successo',
-          confirmButtonText: 'Vai alla pagina principale',
+          confirmButtonText: 'Home',
+          showDenyButton: true,
+          denyButtonText: `Annulla`,
           showClass: {
             popup: 'animate_ animate__animated animate__zoomIn'
           },
           hideClass: {
             popup: 'animate_ animate__animated animate__lightSpeedOutLeft'
           },
-        },
-          () => {
-            return <Redirect to="/mapAsymptomatic" />
-          })
-      } else if (result.isDenied) {
+        }).then((result) => {
+          result.isConfirmed ? setTimeout(() => { _history.push('../#/mapAsymptomatic') }, 900) : setTimeout(() => { _history.push('/ManageThresholds#/Asymptomatic') }, 900)
+        })
+      }
+      else if (result.isDenied) {
         Swal.fire({
           icon: 'error',
           title: 'I dati non sono stati aggiornati',
@@ -538,7 +545,7 @@ export function FormComponentThresholds(props) {
 
         {/* -----------------------------decessi -------------------------------------*/}
         <Route exact path="/Deaths">
-        <ul>
+          <ul>
             <li>
               <Link className="nav-link linkThresholds " to="/">
                 Positivi
@@ -792,7 +799,7 @@ export function FormComponentThresholds(props) {
 
         {/* asintomatici */}
         <Route exact path="/Asymptomatic">
-        <ul>
+          <ul>
             <li>
               <Link className="nav-link linkThresholds " to="/">
                 Positivi
